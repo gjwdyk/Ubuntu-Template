@@ -481,6 +481,8 @@ MiB Swap:   8192.0 total,   8192.0 free,      0.0 used.  31125.0 avail Mem
 
 ## Base Configure the Ubuntu
 
+### sudoers
+
 As per default Ubuntu installation, a `sudo` command will require you to input password.
 For some people, this is annoying, a bit distracting and unnecessary for documentation.
 
@@ -597,19 +599,108 @@ root
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo -l -U root
 Matching Defaults entries for root on F1NB7G4:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty
-
 User root may run the following commands on F1NB7G4:
     (ALL : ALL) ALL
     (ALL : ALL) NOPASSWD: ALL
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo -l -U ubuntu
 Matching Defaults entries for ubuntu on F1NB7G4:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty
-
 User ubuntu may run the following commands on F1NB7G4:
     (ALL : ALL) ALL
     (ALL : ALL) NOPASSWD: ALL
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 ```
+
+<br><br><br>
+
+***
+
+### Advanced Package Tool (apt) Sources
+
+Sometimes, some Ubuntu sources may perform badly.
+You can change where your Ubuntu instance obtains its sources from, by changing the `/etc/apt/sources.list` which has been moved to `/etc/apt/sources.list.d/ubuntu.sources` file.
+
+```
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo cat /etc/apt/sources.list
+# Ubuntu sources have moved to the /etc/apt/sources.list.d/ubuntu.sources
+# file, which uses the deb822 format. Use deb822-formatted .sources files
+# to manage package sources in the /etc/apt/sources.list.d/ directory.
+# See the sources.list(5) manual page for details.
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo cat /etc/apt/sources.list.d/ubuntu.sources
+# See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+# newer versions of the distribution.
+
+## Ubuntu distribution repository
+##
+## The following settings can be adjusted to configure which packages to use from Ubuntu.
+## Mirror your choices (except for URIs and Suites) in the security section below to
+## ensure timely security updates.
+##
+## Types: Append deb-src to enable the fetching of source package.
+## URIs: A URL to the repository (you may add multiple URLs)
+## Suites: The following additional suites can be configured
+##   <name>-updates   - Major bug fix updates produced after the final release of the
+##                      distribution.
+##   <name>-backports - software from this repository may not have been tested as
+##                      extensively as that contained in the main release, although it includes
+##                      newer versions of some applications which may provide useful features.
+##                      Also, please note that software in backports WILL NOT receive any review
+##                      or updates from the Ubuntu security team.
+## Components: Aside from main, the following components can be added to the list
+##   restricted  - Software that may not be under a free license, or protected by patents.
+##   universe    - Community maintained packages. Software in this repository receives maintenance
+##                 from volunteers in the Ubuntu community, or a 10 year security maintenance
+##                 commitment from Canonical when an Ubuntu Pro subscription is attached.
+##   multiverse  - Community maintained of restricted. Software from this repository is
+##                 ENTIRELY UNSUPPORTED by the Ubuntu team, and may not be under a free
+##                 licence. Please satisfy yourself as to your rights to use the software.
+##                 Also, please note that software in multiverse WILL NOT receive any
+##                 review or updates from the Ubuntu security team.
+##
+## See the sources.list(5) manual page for further settings.
+Types: deb
+URIs: http://archive.ubuntu.com/ubuntu/
+Suites: noble noble-updates noble-backports
+Components: main universe restricted multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+## Ubuntu security updates. Aside from URIs and Suites,
+## this should mirror your choices in the previous section.
+Types: deb
+URIs: http://security.ubuntu.com/ubuntu/
+Suites: noble-security
+Components: main universe restricted multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
+```
+
+As you can see, basically there are only two sections on the `/etc/apt/sources.list.d/ubuntu.sources` file.
+
+- [ ] For general update sources.
+
+  ```
+  Types: deb
+  URIs: http://archive.ubuntu.com/ubuntu/
+  Suites: noble noble-updates noble-backports
+  Components: main universe restricted multiverse
+  Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+  ```
+
+- [ ] For Security update sources.
+
+  ```
+  Types: deb
+  URIs: http://security.ubuntu.com/ubuntu/
+  Suites: noble-security
+  Components: main universe restricted multiverse
+  Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+  ```
+
+What you need to update/modify on the two sections are only the `URIs` field.
+To find out what are the other alternative values for the `URIs` field, you can refer to [Official Archive Mirrors for Ubuntu](https://launchpad.net/ubuntu/+archivemirrors).
+Let's take example mirror *Taiwan Digital Streaming Co.* which has two versions:
+- [ ] Taiwan Digital Streaming Co. (archive). Use this if your instance runs on standard x86_64 / AMD64 / Intel 64-bit hardware (which is true for 95% of standard PCs, servers, and standard cloud VMs).
+- [ ] Taiwan Digital Streaming Co. (ports). Use this only if your instance runs on alternative architectures like ARM (e.g., Raspberry Pi, Apple Silicon VMs, AWS Graviton instances), POWER, or RISC-V.
 
 
 
