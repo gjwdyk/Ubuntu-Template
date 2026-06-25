@@ -14,13 +14,15 @@ Having Ubuntu node(s) on WSL2 have some benefits and also disadvantages. The mai
 - [&#x1F44D;] Access to GPU. In this document we test and use PyTorch.
 - [&#x1F44E;] Much more complicated control/configuration of networking, and networking/subnetting are done from Windows host side, not from Ubuntu guest VM side (unlike Ubuntu VM on VMware where you configure the networking/subnetting on the Ubuntu guest VM itself, pretty much like the bare-metal unit).
 
+With the above in mind, at the moment, this document describes only the "how to" install and configure Ubuntu node(s) on WSL2, to be used independently from other nodes within the WSL2 environment (i.e. avoiding the complexity of configuring virtual networking of the WSL2).
+
 Note that this document focus only on [WSL2](https://learn.microsoft.com/en-us/windows/wsl/compare-versions).
 
 <br><br><br>
 
 ***
 
-## WSL Installation on Windows
+## WSL2 Installation on Windows 11
 
 Blah Blah Blah.
 
@@ -28,7 +30,7 @@ Blah Blah Blah.
 
 ***
 
-## Ubuntu Installation on WSL
+## Ubuntu Installation on WSL2
 
 ### Ensure the WSL2 virtualization framework is working
 
@@ -292,11 +294,9 @@ PS C:\Users\hchandra>
 
 ***
 
-### Install Ubuntu
+### Install Ubuntu 24.04 LTS on WSL2
 
-
-
-
+The list of supported Linux OS on WSL2 can be obtained with command: `wsl --list --online`.
 
 ```
 PS C:\windows\system32> wsl --list --online
@@ -329,47 +329,38 @@ SUSE-Linux-Enterprise-15-SP6    SUSE Linux Enterprise 15 SP6
 PS C:\windows\system32>
 ```
 
+From the list above, we picked ***Ubuntu 24.04 LTS*** as at the time of writing *Ubuntu 26.04 LTS* is still very new, and we need to use a latest stable Ubuntu OS (i.e. having no compatibility issues with the GPU drivers).
+
+Once you decide which Linux OS, you can install it with the following command:
+- [ ] `wsl --install --distribution Ubuntu-24.04 --name Ubuntu-24.04-Base --no-launch`
+  or
+- [ ] `wsl --install -d Ubuntu-24.04 --name Ubuntu-24.04-Base -n`
+  Notes:
+- [ ] the `--distribution` or `-d` option requires a string value from the NAME column of the list above.
+- [ ] the `--name` option requires a string value of any string name you'd like to name the downloaded/installed Linux OS at your local environment
 
 
-
-
-
-
-
-wsl --install -d Ubuntu-24.04 --name Ubuntu-24.04-Base --no-launch
-
-
-
-PS C:\Users\hchandra> wsl --list
-Windows Subsystem for Linux has no installed distributions.
-You can resolve this by installing a distribution with the instructions below:
-
-Use 'wsl.exe --list --online' to list available distributions
-and 'wsl.exe --install <Distro>' to install.
-PS C:\Users\hchandra>
-
+```
 PS C:\Users\hchandra> wsl --install -d Ubuntu-24.04 --name Ubuntu-24.04-Base --no-launch
 Downloading: Ubuntu 24.04 LTS
 Installing: Ubuntu 24.04 LTS
 Distribution successfully installed. It can be launched via 'wsl.exe -d Ubuntu-24.04-Base'
 PS C:\Users\hchandra>
+```
 
-PS C:\Users\hchandra> wsl --list
-Windows Subsystem for Linux Distributions:
-Ubuntu-24.04-Base (Default)
-PS C:\Users\hchandra>
 
+```
 PS C:\Users\hchandra> wsl --list --verbose
   NAME                 STATE           VERSION
 * Ubuntu-24.04-Base    Stopped         2
 PS C:\Users\hchandra>
-
+```
 
 
 wsl --distribution Ubuntu-24.04-Base
 
 
-
+```
 PS C:\Users\hchandra> wsl --distribution Ubuntu-24.04-Base
 Provisioning the new WSL instance Ubuntu-24.04-Base
 This might take a while...
@@ -381,7 +372,12 @@ To run a command as administrator (user "root"), use "sudo <command>".
 See "man sudo_root" for details.
 
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
+```
 
+
+
+
+```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ nvidia-smi
 Wed May 27 09:17:47 2026
 +-----------------------------------------------------------------------------------------+
@@ -404,14 +400,18 @@ Wed May 27 09:17:47 2026
 |  No running processes found                                                             |
 +-----------------------------------------------------------------------------------------+
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
+```
 
+```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ htop
 Command 'htop' not found, but can be installed with:
 sudo snap install htop  # version 3.5.1, or
 sudo apt  install htop  # version 3.2.2-2
 See 'snap info htop' for additional versions.
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
+```
 
+```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ top
 top - 09:20:47 up 5 min,  1 user,  load average: 0.01, 0.02, 0.00
 Tasks:  22 total,   1 running,  21 sleeping,   0 stopped,   0 zombie
@@ -442,7 +442,7 @@ MiB Swap:   8192.0 total,   8192.0 free,      0.0 used.  31125.0 avail Mem
     557 ubuntu    20   0   21152   3556   1832 S   0.0   0.0   0:00.00 (sd-pam)
     581 ubuntu    20   0    6056   5244   3592 S   0.0   0.0   0:00.00 bash
     693 ubuntu    20   0    9328   5608   3384 R   0.0   0.0   0:00.01 top
-
+```
 
 
 
