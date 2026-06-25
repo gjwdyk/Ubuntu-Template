@@ -686,7 +686,7 @@ As you can see, basically there are only two sections on the `/etc/apt/sources.l
   Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
   ```
 
-- [ ] For Security update sources.
+- [ ] For security update sources.
 
   ```
   Types: deb
@@ -708,6 +708,21 @@ For each site, on the right side following the site name, there are protocols to
 Generally for standard apt configuration, you'd consider only `https` and `http`, with preferences/recommendations towards `https`.
 - [ ] If you right-click the `https` protocol for *Taiwan Digital Streaming Co. (archive)*, select *Copy Link Address* and paste the copied value, you will get "https://mirror.twds.com.tw/ubuntu/".
 - [ ] If you right-click the `https` protocol for *Taiwan Digital Streaming Co. (ports)*, select *Copy Link Address* and paste the copied value, you will get "https://mirror.twds.com.tw/ubuntu-ports/". The path part "/ubuntu-ports/" indicates that the site is for Ubuntu Ports (alternative architectures).
+
+With the two aspects above, we have narrow down our choices to only one link: "https://mirror.twds.com.tw/ubuntu/", since we are not using alternative architectures and we don't want to use unsecured protocol.
+
+How about the `URIs` field for the security update sources section?
+The sites on the [Official Archive Mirrors for Ubuntu](https://launchpad.net/ubuntu/+archivemirrors) do not have specific section for security update sources.
+You can use the same link as for the general update sources section, i.e. "https://mirror.twds.com.tw/ubuntu/" if we follow our example above.
+
+
+
+
+
+
+
+
+
 
 
 
