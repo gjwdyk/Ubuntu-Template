@@ -436,7 +436,7 @@ Wed May 27 09:17:47 2026
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 ```
 
-You can check how much CPU and RAM the WSL VM has claimed from your host by running `top` command on the Ubuntu CLI Prompt. This will show you a live monitor of the virtualized CPU and Memory. You can cross-reference this with what you saw in the **WSL Settings** app to ensure the VM is breathing properly.
+You can check how much CPU and RAM the Ubuntu Linux OS on the WSL2 has claimed from your host by running `top` command on the Ubuntu CLI Prompt. This will show you a live monitor of the virtualized CPU and Memory. You can cross-reference this with what you saw in the **WSL Settings** application (on the host Windows 11) to ensure the Ubuntu Linux OS VM is breathing properly.
 
 ![Windows Start Menu - WSL Settings](01WindowsStartMenuWSLSettings.png)
 
@@ -474,6 +474,148 @@ MiB Swap:   8192.0 total,   8192.0 free,      0.0 used.  31125.0 avail Mem
     581 ubuntu    20   0    6056   5244   3592 S   0.0   0.0   0:00.00 bash
     693 ubuntu    20   0    9328   5608   3384 R   0.0   0.0   0:00.01 top
 ```
+
+<br><br><br>
+
+***
+
+## Base Configure the Ubuntu
+
+As per default Ubuntu installation, a `sudo` command will require you to input password.
+For some people, this is annoying, a bit distracting and unnecessary for documentation.
+
+To remove this requirement, execute the following command: `echo -e "\n\n\nroot     ALL=(ALL:ALL) NOPASSWD:ALL\nubuntu   ALL=(ALL:ALL) NOPASSWD:ALL\n\n\n" | sudo tee -a /etc/sudoers`.
+
+```
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ echo -e "\n\n\nroot     ALL=(ALL:ALL) NOPASSWD:ALL\nubuntu   ALL=(ALL:ALL) NOPASSWD:ALL\n\n\n" | sudo tee -a /etc/sudoers
+
+
+
+root     ALL=(ALL:ALL) NOPASSWD:ALL
+ubuntu   ALL=(ALL:ALL) NOPASSWD:ALL
+
+
+
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
+```
+
+The command adds the following two lines to the end of `/etc/sudoers` file, with some white-spaces/empty-lines before and after the added two lines.
+- [ ] `root     ALL=(ALL:ALL) NOPASSWD:ALL`
+- [ ] `ubuntu   ALL=(ALL:ALL) NOPASSWD:ALL`
+
+You can check whether the lines had been successfully added, with `sudo cat /etc/sudoers` command.
+
+```
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo cat /etc/sudoers
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults        env_reset
+Defaults        mail_badpass
+Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+
+# This fixes CVE-2005-4890 and possibly breaks some versions of kdesu
+# (#1011624, https://bugs.kde.org/show_bug.cgi?id=452532)
+Defaults        use_pty
+
+# This preserves proxy settings from user environments of root
+# equivalent users (group sudo)
+#Defaults:%sudo env_keep += "http_proxy https_proxy ftp_proxy all_proxy no_proxy"
+
+# This allows running arbitrary commands, but so does ALL, and it means
+# different sudoers have their choice of editor respected.
+#Defaults:%sudo env_keep += "EDITOR"
+
+# Completely harmless preservation of a user preference.
+#Defaults:%sudo env_keep += "GREP_COLOR"
+
+# While you shouldn't normally run git as root, you need to with etckeeper
+#Defaults:%sudo env_keep += "GIT_AUTHOR_* GIT_COMMITTER_*"
+
+# Per-user preferences; root won't have sensible values for them.
+#Defaults:%sudo env_keep += "EMAIL DEBEMAIL DEBFULLNAME"
+
+# "sudo scp" or "sudo rsync" should be able to use your SSH agent.
+#Defaults:%sudo env_keep += "SSH_AGENT_PID SSH_AUTH_SOCK"
+
+# Ditto for GPG agent
+#Defaults:%sudo env_keep += "GPG_AGENT_INFO"
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo   ALL=(ALL:ALL) ALL
+
+# See sudoers(5) for more information on "@include" directives:
+
+@includedir /etc/sudoers.d
+
+
+
+root     ALL=(ALL:ALL) NOPASSWD:ALL
+ubuntu   ALL=(ALL:ALL) NOPASSWD:ALL
+
+
+
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
+```
+
+You can also check whether functionality wise the `/etc/sudoers` file is OK (i.e. parse-able) and whether functionality wise things are still working fine. Some of the test commands are:
+
+- [ ] `sudo visudo -c`. Checks the syntax of the sudoers configuration file. It analyzes `/etc/sudoers` (and any files in `/etc/sudoers.d/`) for typos or formatting errors. If everything is correct, it returns parsed OK. If there's an error, it warns you before you accidentally lock yourself out of administrative privileges.
+
+- [ ] `sudo -k`. Kills/invalidates your cached credentials (your sudo "ticket"). By default, once you type your password for sudo, Linux remembers it for a short grace period (usually 15 minutes) so you don't have to keep retyping it. Running sudo -k immediately revokes this privilege, meaning the very next sudo command will strictly require the password again. It's great for security when walking away from your machine. Do this only when `sudo visudo -c` returns all OK.
+
+- [ ] `sudo whoami`. Outputs the username that the command is currently running as, which will always be `root` (because the prefix `sudo` means you're asking superuser privileges, which is `root` user). It’s a classic sanity check to confirm that `sudo` is working properly and that you have effectively assumed `root` execution power.
+
+- [ ] `sudo -l -U root`. Lists the sudo privileges allowed for the user root. The -l flag lists privileges, and -U specifies the target user. Because root is the ultimate superuser, running this will typically show that root can run (ALL : ALL) ALL - meaning they can run any command, anywhere, as any user or group.
+
+- [ ] `sudo -l -U ubuntu`. Lists the sudo privileges allowed for the user ubuntu. This allows an administrator (or the ubuntu user themselves) to check exactly what permissions the ubuntu account has. It will print out the specific commands ubuntu user is authorized to run via sudo, or tell you if they aren't allowed to use sudo at all.
+
+```
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo visudo -c
+/etc/sudoers: parsed OK
+/etc/sudoers.d/README: parsed OK
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo -k
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo whoami
+root
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo -l -U root
+Matching Defaults entries for root on F1NB7G4:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty
+
+User root may run the following commands on F1NB7G4:
+    (ALL : ALL) ALL
+    (ALL : ALL) NOPASSWD: ALL
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo -l -U ubuntu
+Matching Defaults entries for ubuntu on F1NB7G4:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty
+
+User ubuntu may run the following commands on F1NB7G4:
+    (ALL : ALL) ALL
+    (ALL : ALL) NOPASSWD: ALL
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
+```
+
+
+
+
+
+
 
 <br><br><br>
 
