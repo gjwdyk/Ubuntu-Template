@@ -340,17 +340,23 @@ Once you decide which Linux OS, you can install it with the following command:
 
   Notes:
 
-- [ ] the `--distribution` or `-d` option requires a string value from the NAME column of the list above.
-- [ ] the `--name` option requires a string value of any string name you'd like to name the downloaded/installed Linux OS at your local environment
-
+- [ ] the `--distribution` or `-d` option requires a string value from the `NAME` column of the list above.
+- [ ] the `--name` option requires a string value of any continuous-string name you'd like to name the downloaded/installed Linux OS at your local environment.
 
 ```
-PS C:\Users\hchandra> wsl --install -d Ubuntu-24.04 --name Ubuntu-24.04-Base --no-launch
+PS C:\Users\hchandra> wsl --install --distribution Ubuntu-24.04 --name Ubuntu-24.04-Base --no-launch
 Downloading: Ubuntu 24.04 LTS
 Installing: Ubuntu 24.04 LTS
 Distribution successfully installed. It can be launched via 'wsl.exe -d Ubuntu-24.04-Base'
 PS C:\Users\hchandra>
 ```
+
+The command will download and install the targeted Linux OS to the standard/default folder which typically be `%USERPROFILE%\AppData\Local\wsl\{01234567-89ab-cdef-0123-456789abcdef}\` folder.
+- [ ] The `%USERPROFILE%` part is your *Home Path* within Windows 11 OS environment.
+- [ ] The `{01234567-89ab-cdef-0123-456789abcdef}` is a 32-digits of hexadecimal-number formatted as per shown.
+
+And as we issue the WSL command with `--no-launch` option, the WSL2 will do only download and install the targeted Linux OS, and NOT launch it.
+
 
 
 ```
