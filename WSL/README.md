@@ -338,7 +338,7 @@ Once you decide which Linux OS, you can install it with the following command:
 
 - [ ] `wsl --install -d Ubuntu-24.04 --name Ubuntu-24.04-Base -n`
 
-  Notes:
+  Notes on the command's options:
 
 - [ ] the `--distribution` or `-d` option requires a string value from the `NAME` column of the list above.
 - [ ] the `--name` option requires a string value of any continuous-string name you'd like to name the downloaded/installed Linux OS at your local environment.
@@ -357,7 +357,7 @@ The command will download and install the targeted Linux OS to the standard/defa
 
 And as we issue the WSL command with `--no-launch` option, the WSL2 will do only download and install the targeted Linux OS, and NOT launch it.
 
-
+Once you have downloaded and installed a Linux OS onto the WSL, you can list your installed Linux OS(es) with command: `wsl --list --verbose` or `wsl -l -v`.
 
 ```
 PS C:\Users\hchandra> wsl --list --verbose
@@ -366,9 +366,10 @@ PS C:\Users\hchandra> wsl --list --verbose
 PS C:\Users\hchandra>
 ```
 
+To launch (or to run) the installed Linux OS, issue the command: `wsl --distribution Ubuntu-24.04-Base`.
+Note that now the `--distribution` option refers to the `NAME` you have given to the installed Linux OS, at/for your local environment (i.e. the `NAME` column on the installed Linux OS list above).
 
-wsl --distribution Ubuntu-24.04-Base
-
+If you launch/run your installed Ubuntu OS the first time, you will be asked to create default account and the corresponding password.
 
 ```
 PS C:\Users\hchandra> wsl --distribution Ubuntu-24.04-Base
@@ -383,6 +384,28 @@ See "man sudo_root" for details.
 
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 ```
+
+Note that the CLI Prompt after the command does NOT return to Windows 11's *Windows PowerShell* or *Command Prompt*, but the prompt now is held by the Ubuntu Linux OS prompt.
+
+For the subsequent launch/run of the installed Ubuntu OS, you will be directly prompted with Ubuntu Linux OS prompt.
+
+```
+PS C:\Users\hchandra> wsl --distribution Ubuntu-24.04-Base
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
+```
+
+Notes on Ubuntu Linux OS Prompt:
+- [ ] `F1NB7G4` part will be your Windows 11 Device/Host Name.
+- [ ] Your `%USERPROFILE%` or *Home Path* is mounted as `/mnt/%HOMEDRIVE%/%HOMEPATH%`, and that will be the landing folder every time you launch/run the installed Ubuntu Linux OS.
+
+
+
+
+
+
+
+
+
 
 
 
@@ -412,14 +435,6 @@ Wed May 27 09:17:47 2026
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 ```
 
-```
-ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ htop
-Command 'htop' not found, but can be installed with:
-sudo snap install htop  # version 3.5.1, or
-sudo apt  install htop  # version 3.2.2-2
-See 'snap info htop' for additional versions.
-ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
-```
 
 ```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ top
