@@ -333,9 +333,13 @@ From the list above, we picked ***Ubuntu 24.04 LTS*** as at the time of writing 
 
 Once you decide which Linux OS, you can install it with the following command:
 - [ ] `wsl --install --distribution Ubuntu-24.04 --name Ubuntu-24.04-Base --no-launch`
+
   or
+
 - [ ] `wsl --install -d Ubuntu-24.04 --name Ubuntu-24.04-Base -n`
+
   Notes:
+
 - [ ] the `--distribution` or `-d` option requires a string value from the NAME column of the list above.
 - [ ] the `--name` option requires a string value of any string name you'd like to name the downloaded/installed Linux OS at your local environment
 
