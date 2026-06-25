@@ -355,6 +355,17 @@ The command will download and install the targeted Linux OS to the standard/defa
 - [ ] The `%USERPROFILE%` part is your *Home Path* within Windows 11 OS environment.
 - [ ] The `{01234567-89ab-cdef-0123-456789abcdef}` is a 32-digits of hexadecimal-number formatted as per shown.
 
+If for some reason, you did NOT run `wsl --list --online` first, you ***may*** run into the following issue.
+
+```
+PS C:\Users\hchandra> wsl --install --distribution Ubuntu-24.04 --name Ubuntu-24.04-Base --no-launch
+Failed to fetch the distribution list from 'https://raw.githubusercontent.com/microsoft/WSL/master/distributions/DistributionInfo.json'. The server name or address could not be resolved
+Error code: Wsl/InstallDistro/WININET_E_NAME_NOT_RESOLVED
+PS C:\Users\hchandra>
+```
+
+To fix, you just need to run `wsl --list --online` command first, before executing the `wsl --install --distribution Ubuntu-24.04 --name Ubuntu-24.04-Base --no-launch` command.
+
 And as we issue the WSL command with `--no-launch` option, the WSL2 will do only download and install the targeted Linux OS, and NOT launch it.
 
 Once you have downloaded and installed a Linux OS onto the WSL, you can list your installed Linux OS(es) with command: `wsl --list --verbose` or `wsl -l -v`.
@@ -398,17 +409,7 @@ Notes on Ubuntu Linux OS Prompt:
 - [ ] `F1NB7G4` part will be your Windows 11 Device/Host Name.
 - [ ] Your `%USERPROFILE%` or *Home Path* is mounted as `/mnt/%HOMEDRIVE%/%HOMEPATH%`, and that will be the landing folder every time you launch/run the installed Ubuntu Linux OS.
 
-
-
-
-
-
-
-
-
-
-
-
+By default, without additional module installation, the *Ubuntu 24.04 LTS* already includes the `nvidia-smi` (NVIDIA System Management Interface), a command-line utility used to monitor and manage NVIDIA GPU. It verifies that your Windows-based NVIDIA graphics driver and GPU are successfully recognized and passed through to your Linux environment.
 
 ```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ nvidia-smi
@@ -435,6 +436,11 @@ Wed May 27 09:17:47 2026
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 ```
 
+You can check how much CPU and RAM the WSL VM has claimed from your host by running `top` command on the Ubuntu CLI Prompt. This will show you a live monitor of the virtualized CPU and Memory. You can cross-reference this with what you saw in the **WSL Settings** app to ensure the VM is breathing properly.
+
+![Windows Start Menu - WSL Settings](01WindowsStartMenuWSLSettings.png)
+
+![WSL Settings - Memory and Processor](02WSLSettingsMemoryAndProcessor.png)
 
 ```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ top
@@ -468,21 +474,6 @@ MiB Swap:   8192.0 total,   8192.0 free,      0.0 used.  31125.0 avail Mem
     581 ubuntu    20   0    6056   5244   3592 S   0.0   0.0   0:00.00 bash
     693 ubuntu    20   0    9328   5608   3384 R   0.0   0.0   0:00.01 top
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Blah Blah Blah.
 
 <br><br><br>
 
