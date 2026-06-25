@@ -698,12 +698,16 @@ As you can see, basically there are only two sections on the `/etc/apt/sources.l
 
 What you need to update/modify on the two sections are only the `URIs` field.
 To find out what are the other alternative values for the `URIs` field, you can refer to [Official Archive Mirrors for Ubuntu](https://launchpad.net/ubuntu/+archivemirrors).
-Let's take example mirror *Taiwan Digital Streaming Co.* which has two versions:
-- [ ] Taiwan Digital Streaming Co. (archive). Use this if your instance runs on standard x86_64 / AMD64 / Intel 64-bit hardware (which is true for 95% of standard PCs, servers, and standard cloud VMs).
-- [ ] Taiwan Digital Streaming Co. (ports). Use this only if your instance runs on alternative architectures like ARM (e.g., Raspberry Pi, Apple Silicon VMs, AWS Graviton instances), POWER, or RISC-V.
+Let's take example one of the closest mirrors with one of the largest bandwidth *Taiwan Digital Streaming Co.* which has two versions:
+- [ ] *Taiwan Digital Streaming Co. (archive)*. Use this if your instance runs on standard x86_64 / AMD64 / Intel 64-bit hardware (which is true for 95% of standard PCs, servers, and standard cloud VMs).
+- [ ] *Taiwan Digital Streaming Co. (ports)*. This site is for Ubuntu Ports. Use this only if your instance runs on alternative architectures like ARM (e.g., Raspberry Pi, Apple Silicon VMs, AWS Graviton instances), POWER, or RISC-V.
 
+![Ubuntu Mirror - Taiwan Digital Streaming](03UbuntuMirrorTaiwanDigitalStreaming.png)
 
-
+For each site, on the right side following the site name, there are protocols to connect to the site: `https`, `http` and `rsync`.
+Generally for standard apt configuration, you'd consider only `https` and `http`, with preferences/recommendations towards `https`.
+- [ ] If you right-click the `https` protocol for *Taiwan Digital Streaming Co. (archive)*, select *Copy Link Address* and paste the copied value, you will get "https://mirror.twds.com.tw/ubuntu/".
+- [ ] If you right-click the `https` protocol for *Taiwan Digital Streaming Co. (ports)*, select *Copy Link Address* and paste the copied value, you will get "https://mirror.twds.com.tw/ubuntu-ports/". The path part "/ubuntu-ports/" indicates that the site is for Ubuntu Ports (alternative architectures).
 
 
 
