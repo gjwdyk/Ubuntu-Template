@@ -1608,17 +1608,17 @@ Calculating upgrade... Done
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 ```
 
-As per time of this document writing, below are the collections of Ubuntu resource sites for `/etc/apt/sources.list.d/ubuntu.sources` file. The sites are ones which provide largest bandwidth.
+As per time of this document writing, below are the collections of Ubuntu resource sites for `/etc/apt/sources.list.d/ubuntu.sources` file. The sites are ones which provide largest bandwidth, and ***subjective*** evaluation of reliability.
 
 ```
 Types: deb
-URIs: https://mirror.twds.com.tw/ubuntu/ https://ftp.kaist.ac.kr/ubuntu/ https://ftp.udx.icscoe.jp/Linux/ubuntu/ https://ftp.uni-stuttgart.de/ubuntu/ https://mirror.enzu.com/ubuntu/ https://mirrors.arcuslayer.com/ubuntu/ https://archive.ubuntu.com/ubuntu/
+URIs: https://mirror.twds.com.tw/ubuntu/ https://ftp.kaist.ac.kr/ubuntu/ https://ftp.udx.icscoe.jp/Linux/ubuntu/ https://ftp.uni-stuttgart.de/ubuntu/ https://mirrors.arcuslayer.com/ubuntu/ https://archive.ubuntu.com/ubuntu/
 Suites: noble noble-updates noble-backports
 Components: main universe restricted multiverse
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
 Types: deb
-URIs: https://mirror.twds.com.tw/ubuntu/ https://ftp.kaist.ac.kr/ubuntu/ https://ftp.udx.icscoe.jp/Linux/ubuntu/ https://ftp.uni-stuttgart.de/ubuntu/ https://mirror.enzu.com/ubuntu/ https://mirrors.arcuslayer.com/ubuntu/ https://security.ubuntu.com/ubuntu/
+URIs: https://mirror.twds.com.tw/ubuntu/ https://ftp.kaist.ac.kr/ubuntu/ https://ftp.udx.icscoe.jp/Linux/ubuntu/ https://ftp.uni-stuttgart.de/ubuntu/ https://mirrors.arcuslayer.com/ubuntu/ https://security.ubuntu.com/ubuntu/
 Suites: noble-security
 Components: main universe restricted multiverse
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
@@ -1630,6 +1630,33 @@ Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
 
 
+
+
+
+
+
+
+<br><br><br>
+
+***
+
+## Cloning and Clean-Up
+
+
+
+```
+PS C:\Users\hchandra> wsl --list --verbose
+  NAME                 STATE           VERSION
+* Ubuntu-24.04-Base    Stopped         2
+  Ubuntu-24.04-Test    Stopped         2
+PS C:\Users\hchandra> wsl --unregister Ubuntu-24.04-Test
+Unregistering.
+The operation completed successfully.
+PS C:\Users\hchandra> wsl --list --verbose
+  NAME                 STATE           VERSION
+* Ubuntu-24.04-Base    Stopped         2
+PS C:\Users\hchandra>
+```
 
 
 
