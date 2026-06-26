@@ -2801,9 +2801,7 @@ To compact vDisk, there are several ways; mostly require access to Windows 11 ad
 Fortunately during ***Exporting*** the WSL VM Instance, WSL compacts the vDisk (it creates copies of files, not disk-sectors which may or may not contain file/part-of-file).
 Therefore by *Exporting* and *Importing* the VM Instance we achieve two goals: Cloning the WSL VM, and Compacting the VM's vDisk.
 
-To export a WSL VM, issue the following command: `wsl --export Ubuntu-24.04-Base C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base.tar`.
-
-
+To export a WSL VM, issue the following commands:
 
 ```
 mkdir C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base
@@ -2811,10 +2809,46 @@ wsl --export Ubuntu-24.04-Base "C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Ba
 ```
 
 
+
+
+
+
+
 ```
-PS C:\Users\hchandra> wsl --export Ubuntu-24.04-Base C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base.tar
-Export in progress, this may take a few minutes. (12818 MB)
+PS C:\Users\hchandra> wsl --list --verbose
+  NAME                 STATE           VERSION
+* Ubuntu-24.04-Base    Stopped         2
+PS C:\Users\hchandra>
+```
+
+```
+PS C:\Users\hchandra> mkdir C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base
+
+    Directory: C:\HC\VM\BackUp\WSL\Ubuntu-24.04
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         6/26/2026   8:33 PM                Ubuntu-24.04-Base
+
+PS C:\Users\hchandra>
+```
+
+```
+PS C:\Users\hchandra> wsl --export Ubuntu-24.04-Base "C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base\$(Get-Date -Format 'yyyyMMdd-HHmm')-Ubuntu-24.04-Base.tar"
+Export in progress, this may take a few minutes. (12833 MB)
 The operation completed successfully.
+PS C:\Users\hchandra>
+```
+
+```
+PS C:\Users\hchandra> dir C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base
+
+    Directory: C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         6/26/2026   8:38 PM    13463951360 20260626-2036-Ubuntu-24.04-Base.tar
+
 PS C:\Users\hchandra>
 ```
 
@@ -2822,8 +2856,54 @@ PS C:\Users\hchandra>
 
 ```
 mkdir C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test
-wsl --import Ubuntu-24.04-Test C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base.tar
+wsl --import Ubuntu-24.04-Test C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base\20260626-2036-Ubuntu-24.04-Base.tar
 ```
+
+
+```
+PS C:\Users\hchandra> mkdir C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test
+
+    Directory: C:\HC\VM\OS\WSL\Ubuntu-24.04
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         6/26/2026   8:39 PM                Ubuntu-24.04-Test
+
+PS C:\Users\hchandra>
+```
+
+```
+PS C:\Users\hchandra> wsl --import Ubuntu-24.04-Test C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base\20260626-2036-Ubuntu-24.04-Base.tar
+The operation completed successfully.
+PS C:\Users\hchandra>
+```
+
+```
+PS C:\Users\hchandra> dir C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test
+
+    Directory: C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         6/26/2026   8:46 PM    13804503040 ext4.vhdx
+-a----         6/26/2026   8:45 PM          37207 shortcut.ico
+
+PS C:\Users\hchandra>
+```
+
+
+
+```
+PS C:\Users\hchandra> wsl --list --verbose
+  NAME                 STATE           VERSION
+* Ubuntu-24.04-Base    Stopped         2
+  Ubuntu-24.04-Test    Stopped         2
+PS C:\Users\hchandra>
+```
+
+
+
+
 
 
 
