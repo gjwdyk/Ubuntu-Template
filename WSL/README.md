@@ -1460,6 +1460,36 @@ ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 
 </details>
 
+You can configure multiple URIs for a single block of suite section.
+You simply list the URIs on the same line, separated by space. For example:
+
+```
+Types: deb
+URIs: https://archive.domain.tld/ubuntu/   https://mirror.twds.com.tw/ubuntu/   https://archive.ubuntu.com/ubuntu/
+Suites: noble noble-updates noble-backports
+Components: main universe restricted multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+Types: deb
+URIs: https://security.domain.tld/ubuntu/   https://mirror.twds.com.tw/ubuntu/   https://security.ubuntu.com/ubuntu/
+Suites: noble-security
+Components: main universe restricted multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+```
+
+APT reads them from left to right.
+It will always attempt to connect to the first URI (ftp.kaist.ac.kr).
+If that server is down, times out, or returns a connection error, APT will seamlessly failover to the second URI (kr.archive.ubuntu.com) to look for the packages.
+
+
+
+
+
+
+
+
+
+
 Blah Blah Blah
 
 <br><br><br>
