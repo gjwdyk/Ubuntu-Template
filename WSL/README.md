@@ -453,7 +453,7 @@ ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 
 You can check how much CPU and RAM the Ubuntu Linux OS on the WSL2 has claimed from your host by running `top` command on the Ubuntu CLI Prompt. This will show you a live monitor of the virtualized CPU and Memory. You can cross-reference this with what you saw in the **WSL Settings** application (on the host Windows 11) to ensure the Ubuntu Linux OS VM is breathing properly.
 
-<p align="center"><img src="./01WindowsStartMenuWSLSettings.png" alt="Windows Start Menu - WSL Settings" width="42%"></p>
+<p align="center"><img src="./01WindowsStartMenuWSLSettings.png" alt="Windows Start Menu - WSL Settings" width="69%"></p>
 
 <p align="center"><img src="./02WSLSettingsMemoryAndProcessor.png" alt="WSL Settings - Memory and Processor" width="98%"></p>
 
