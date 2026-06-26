@@ -2801,18 +2801,7 @@ To compact vDisk, there are several ways; mostly require access to Windows 11 ad
 Fortunately during ***Exporting*** the WSL VM Instance, WSL compacts the vDisk (it creates copies of files, not disk-sectors which may or may not contain file/part-of-file).
 Therefore by *Exporting* and *Importing* the VM Instance we achieve two goals: Cloning the WSL VM, and Compacting the VM's vDisk.
 
-To export a WSL VM, issue the following commands:
-
-```
-mkdir C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base
-wsl --export Ubuntu-24.04-Base "C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base\$(Get-Date -Format 'yyyyMMdd-HHmm')-Ubuntu-24.04-Base.tar"
-```
-
-
-
-
-
-
+For example, we have the standard Ubuntu-24.04 implementation on WSL2 as below:
 
 ```
 PS C:\Users\hchandra> wsl --list --verbose
@@ -2820,6 +2809,37 @@ PS C:\Users\hchandra> wsl --list --verbose
 * Ubuntu-24.04-Base    Stopped         2
 PS C:\Users\hchandra>
 ```
+
+Note that the target WSL2 VM (in this case *Ubuntu-24.04-Base* instance) must be in ***Stopped*** state before the export procedure start.
+
+By default, WSL will download and install the targeted Linux OS to the standard/default folder which typically be `%USERPROFILE%\AppData\Local\wsl\{01234567-89ab-cdef-0123-456789abcdef}\` folder.
+Below is the example installation folder's contents for the above *Ubuntu-24.04-Base* instance.
+
+```
+PS C:\Users\hchandra> dir "C:\Users\hchandra\AppData\Local\wsl\{1527cc2d-5fda-4738-9b6c-02e99adc5441}\"
+
+    Directory: C:\Users\hchandra\AppData\Local\wsl\{1527cc2d-5fda-4738-9b6c-02e99adc5441}
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         6/26/2026   8:39 PM    18107858944 ext4.vhdx
+-a----         5/27/2026   9:05 AM          37207 shortcut.ico
+
+PS C:\Users\hchandra>
+```
+
+To `dir` the folder, you need to enclose/wrap the path in double quotes "".
+As we can see, the vDisk of *Ubuntu-24.04-Base* instance is around 18.1 GBytes.
+
+To export *Ubuntu-24.04-Base* instance, issue the following commands:
+
+```
+mkdir C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base
+wsl --export Ubuntu-24.04-Base "C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base\$(Get-Date -Format 'yyyyMMdd-HHmm')-Ubuntu-24.04-Base.tar"
+```
+
+Note that: the destination folder `C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base` to hold the export-bundle.tar file, must exist.
+Therefore we need the `mkdir C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base` command to ensure this.
 
 ```
 PS C:\Users\hchandra> mkdir C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base
@@ -2833,12 +2853,27 @@ d-----         6/26/2026   8:33 PM                Ubuntu-24.04-Base
 PS C:\Users\hchandra>
 ```
 
+Once we ensure that the destination `C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base` folder exist, we can use it in the export command: `wsl --export Ubuntu-24.04-Base "C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base\$(Get-Date -Format 'yyyyMMdd-HHmm')-Ubuntu-24.04-Base.tar"`.
+
 ```
 PS C:\Users\hchandra> wsl --export Ubuntu-24.04-Base "C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base\$(Get-Date -Format 'yyyyMMdd-HHmm')-Ubuntu-24.04-Base.tar"
 Export in progress, this may take a few minutes. (12833 MB)
 The operation completed successfully.
 PS C:\Users\hchandra>
 ```
+
+Notes on the export command:
+- [ ] `--export Ubuntu-24.04-Base`
+
+  The `--export` option requires the Name of VM instance to be exported. In this case, the target is to export *Ubuntu-24.04-Base* instance.
+
+- [ ] `"C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base\$(Get-Date -Format 'yyyyMMdd-HHmm')-Ubuntu-24.04-Base.tar"`
+
+  This is resulting exported .tar file of the target VM instance, including the full absolute path.
+  It is recommended to enclose/wrap the path in double quotes "".
+  The path includes a short script `$(Get-Date -Format 'yyyyMMdd-HHmm')` to embed Year-Month-Date-Hour-Minute information in yyyyMMdd-HHmm format into the file-name.
+
+Once the export command finished, you can `dir` the destination folder `C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base` to see its content.
 
 ```
 PS C:\Users\hchandra> dir C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base
@@ -2851,6 +2886,12 @@ Mode                 LastWriteTime         Length Name
 
 PS C:\Users\hchandra>
 ```
+
+From the `dir` command, we can see the exported result is a file name `20260626-2036-Ubuntu-24.04-Base.tar` with size around 13.4 GBytes.
+
+If you want to keep the exported result `20260626-2036-Ubuntu-24.04-Base.tar` file as frozen template for future re-deployment/re-import (so you can quickly have good clean WSL2 VM instance), you can additionally compress the export result `.tar` file.
+
+To re-deploy/re-import the resulting `.tar` file, issue the following commands:
 
 
 
