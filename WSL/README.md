@@ -1477,9 +1477,154 @@ Components: main universe restricted multiverse
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 ```
 
-APT reads them from left to right.
-It will always attempt to connect to the first URI (ftp.kaist.ac.kr).
-If that server is down, times out, or returns a connection error, APT will seamlessly failover to the second URI (kr.archive.ubuntu.com) to look for the packages.
+The theory was "APT reads the URIs from left to right. It will always attempt to connect to the first URI (example: https://archive.domain.tld/ubuntu/). If that server is down, times out, or returns a connection error, APT will seamlessly failover to the second URI (https://mirror.twds.com.tw/ubuntu/) to look for the packages.".
+However from the tests shown below, it does not look like the theory is right.
+
+It looks like APT reads ALL the URIs, and try to connect to ALL of them to collect ALL the possible Indexes files (and ***probably*** merge the Indexes files).
+
+<details>
+<summary><b>Click here to expand <code>sudo apt update -y</code> CLI Dump</b></summary>
+
+```
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo apt update -y
+Get:1 https://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Hit:2 https://mirror.twds.com.tw/ubuntu noble InRelease
+Hit:3 https://mirror.twds.com.tw/ubuntu noble-updates InRelease
+Hit:4 https://mirror.twds.com.tw/ubuntu noble-backports InRelease
+Get:5 https://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+Hit:6 https://mirror.twds.com.tw/ubuntu noble-security InRelease
+Get:7 https://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [781 kB]
+Get:8 https://security.ubuntu.com/ubuntu noble-security/main Translation-en [178 kB]
+Get:9 https://security.ubuntu.com/ubuntu noble-security/main amd64 Components [44.9 kB]
+Get:10 https://security.ubuntu.com/ubuntu noble-security/main amd64 c-n-f Metadata [11.6 kB]
+Get:11 https://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1171 kB]
+Get:12 https://security.ubuntu.com/ubuntu noble-security/universe Translation-en [229 kB]
+Get:13 https://security.ubuntu.com/ubuntu noble-security/universe amd64 Components [76.3 kB]
+Get:14 https://security.ubuntu.com/ubuntu noble-security/universe amd64 c-n-f Metadata [24.1 kB]
+Get:15 https://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1048 kB]
+Get:16 https://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:17 https://security.ubuntu.com/ubuntu noble-security/restricted Translation-en [238 kB]
+Get:18 https://security.ubuntu.com/ubuntu noble-security/restricted amd64 Components [212 B]
+Get:19 https://security.ubuntu.com/ubuntu noble-security/restricted amd64 c-n-f Metadata [444 B]
+Get:20 https://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [35.3 kB]
+Get:21 https://security.ubuntu.com/ubuntu noble-security/multiverse Translation-en [8308 B]
+Get:22 https://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Components [208 B]
+Get:23 https://security.ubuntu.com/ubuntu noble-security/multiverse amd64 c-n-f Metadata [468 B]
+Get:24 https://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:25 https://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1401 kB]
+Get:26 https://archive.ubuntu.com/ubuntu noble/main Translation-en [513 kB]
+Get:27 https://archive.ubuntu.com/ubuntu noble/main amd64 Components [464 kB]
+Get:28 https://archive.ubuntu.com/ubuntu noble/main amd64 c-n-f Metadata [30.5 kB]
+Get:29 https://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [15.0 MB]
+Get:30 https://archive.ubuntu.com/ubuntu noble/universe Translation-en [5982 kB]
+Get:31 https://archive.ubuntu.com/ubuntu noble/universe amd64 Components [3871 kB]
+Get:32 https://archive.ubuntu.com/ubuntu noble/universe amd64 c-n-f Metadata [301 kB]
+Get:33 https://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [93.9 kB]
+Get:34 https://archive.ubuntu.com/ubuntu noble/restricted Translation-en [18.7 kB]
+Get:35 https://archive.ubuntu.com/ubuntu noble/restricted amd64 c-n-f Metadata [416 B]
+Get:36 https://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [269 kB]
+Get:37 https://archive.ubuntu.com/ubuntu noble/multiverse Translation-en [118 kB]
+Get:38 https://archive.ubuntu.com/ubuntu noble/multiverse amd64 Components [35.0 kB]
+Get:39 https://archive.ubuntu.com/ubuntu noble/multiverse amd64 c-n-f Metadata [8328 B]
+Get:40 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1041 kB]
+Get:41 https://archive.ubuntu.com/ubuntu noble-updates/main Translation-en [261 kB]
+Get:42 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [181 kB]
+Get:43 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 c-n-f Metadata [17.4 kB]
+Get:44 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1656 kB]
+Get:45 https://archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [326 kB]
+Get:46 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [388 kB]
+Get:47 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 c-n-f Metadata [34.8 kB]
+Get:48 https://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1134 kB]
+Get:49 https://archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [257 kB]
+Get:50 https://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Components [212 B]
+Get:51 https://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 c-n-f Metadata [456 B]
+Get:52 https://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [40.4 kB]
+Get:53 https://archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [9972 B]
+Get:54 https://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+Get:55 https://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 c-n-f Metadata [656 B]
+Get:56 https://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [40.6 kB]
+Get:57 https://archive.ubuntu.com/ubuntu noble-backports/main Translation-en [9172 B]
+Get:58 https://archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [5760 B]
+Get:59 https://archive.ubuntu.com/ubuntu noble-backports/main amd64 c-n-f Metadata [368 B]
+Get:60 https://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [31.0 kB]
+Get:61 https://archive.ubuntu.com/ubuntu noble-backports/universe Translation-en [18.6 kB]
+Get:62 https://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [10.5 kB]
+Get:63 https://archive.ubuntu.com/ubuntu noble-backports/universe amd64 c-n-f Metadata [1588 B]
+Get:64 https://archive.ubuntu.com/ubuntu noble-backports/restricted amd64 Components [212 B]
+Get:65 https://archive.ubuntu.com/ubuntu noble-backports/restricted amd64 c-n-f Metadata [116 B]
+Get:66 https://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [748 B]
+Get:67 https://archive.ubuntu.com/ubuntu noble-backports/multiverse Translation-en [340 B]
+Get:68 https://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Components [212 B]
+Get:69 https://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 c-n-f Metadata [116 B]
+Ign:70 https://archive.domain.tld/ubuntu noble InRelease
+Ign:71 https://security.domain.tld/ubuntu noble-security InRelease
+Ign:72 https://archive.domain.tld/ubuntu noble-updates InRelease
+Ign:71 https://security.domain.tld/ubuntu noble-security InRelease
+Ign:73 https://archive.domain.tld/ubuntu noble-backports InRelease
+Ign:71 https://security.domain.tld/ubuntu noble-security InRelease
+Ign:70 https://archive.domain.tld/ubuntu noble InRelease
+Err:71 https://security.domain.tld/ubuntu noble-security InRelease
+  Temporary failure resolving 'security.domain.tld'
+Ign:72 https://archive.domain.tld/ubuntu noble-updates InRelease
+Ign:73 https://archive.domain.tld/ubuntu noble-backports InRelease
+Ign:70 https://archive.domain.tld/ubuntu noble InRelease
+Ign:72 https://archive.domain.tld/ubuntu noble-updates InRelease
+Ign:73 https://archive.domain.tld/ubuntu noble-backports InRelease
+Err:70 https://archive.domain.tld/ubuntu noble InRelease
+  Temporary failure resolving 'archive.domain.tld'
+Err:72 https://archive.domain.tld/ubuntu noble-updates InRelease
+  Temporary failure resolving 'archive.domain.tld'
+Err:73 https://archive.domain.tld/ubuntu noble-backports InRelease
+  Temporary failure resolving 'archive.domain.tld'
+Fetched 38.1 MB in 4min 0s (159 kB/s)
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+All packages are up to date.
+W: Failed to fetch https://archive.domain.tld/ubuntu/dists/noble/InRelease  Temporary failure resolving 'archive.domain.tld'
+W: Failed to fetch https://archive.domain.tld/ubuntu/dists/noble-updates/InRelease  Temporary failure resolving 'archive.domain.tld'
+W: Failed to fetch https://archive.domain.tld/ubuntu/dists/noble-backports/InRelease  Temporary failure resolving 'archive.domain.tld'
+W: Failed to fetch https://security.domain.tld/ubuntu/dists/noble-security/InRelease  Temporary failure resolving 'security.domain.tld'
+W: Some index files failed to download. They have been ignored, or old ones used instead.
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
+```
+
+</details>
+
+From the above test, it looks like APT connects to ALL of the provided URIs to collect ALL the possible Indexes files.
+APT did NOT fetch many Indexes files from "https://mirror.twds.com.tw/ubuntu/" because we already did that (on the previous test above).
+APT did fetch a lot of Indexes files from both "https://archive.ubuntu.com/ubuntu/" and "https://security.ubuntu.com/ubuntu/" because these two resource sites are new to APT.
+APT struggle to connect to "https://archive.domain.tld/ubuntu/" and "https://security.domain.tld/ubuntu/" because obviously these sites are not working (because they're fake sites purposely inserted to stimulate errors).
+
+The collected Indexes files are ***probably*** merged by APT, since when it is asked to actually download and install new/updated software modules, it does not find any new/updated software modules (because we just did that on our previous test above).
+
+```
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo apt upgrade -y
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
+```
+
+As per time of this document writing, below are the collections of Ubuntu resource sites for `/etc/apt/sources.list.d/ubuntu.sources` file. The sites are ones which provide largest bandwidth.
+
+```
+Types: deb
+URIs: https://mirror.twds.com.tw/ubuntu/ https://ftp.kaist.ac.kr/ubuntu/ https://ftp.udx.icscoe.jp/Linux/ubuntu/ https://ftp.uni-stuttgart.de/ubuntu/ https://mirror.enzu.com/ubuntu/ https://mirrors.arcuslayer.com/ubuntu/ https://archive.ubuntu.com/ubuntu/
+Suites: noble noble-updates noble-backports
+Components: main universe restricted multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+Types: deb
+URIs: https://mirror.twds.com.tw/ubuntu/ https://ftp.kaist.ac.kr/ubuntu/ https://ftp.udx.icscoe.jp/Linux/ubuntu/ https://ftp.uni-stuttgart.de/ubuntu/ https://mirror.enzu.com/ubuntu/ https://mirrors.arcuslayer.com/ubuntu/ https://security.ubuntu.com/ubuntu/
+Suites: noble-security
+Components: main universe restricted multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+```
+
+
 
 
 
