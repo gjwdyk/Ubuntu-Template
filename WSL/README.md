@@ -812,7 +812,7 @@ Subsequently, when you do `sudo apt upgrade -y` to actually download and install
 - [ ] those upgrade modules are retrieved from "https://mirror.twds.com.tw/ubuntu"
 
 <details>
-<summary><b>Click here to expand `sudo apt upgrade -y` CLI Dump</b></summary>
+<summary><b>Click here to expand <code>sudo apt upgrade -y</code> CLI Dump</b></summary>
 
 ```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo apt upgrade -y
