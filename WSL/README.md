@@ -2803,6 +2803,8 @@ Therefore by *Exporting* and *Importing* the VM Instance we achieve two goals: C
 
 To export a WSL VM, issue the following command: `wsl --export Ubuntu-24.04-Base C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base.tar`.
 
+`wsl --export Ubuntu-24.04-Base "C:\HC\VM\BackUp\WSL\Ubuntu-24.04\$(Get-Date -Format 'yyyyMMdd-HHmm')-Ubuntu-24.04-Base.tar"`
+
 ```
 PS C:\Users\hchandra> wsl --export Ubuntu-24.04-Base C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base.tar
 Export in progress, this may take a few minutes. (12818 MB)
@@ -2811,11 +2813,11 @@ PS C:\Users\hchandra>
 ```
 
 
-`wsl --import Ubuntu-24.04-Test C:\HC\VM\OS\WSL\Ubuntu-24.04 C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base.tar`
 
-
-
-
+```
+mkdir C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test
+wsl --import Ubuntu-24.04-Test C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base.tar
+```
 
 
 
