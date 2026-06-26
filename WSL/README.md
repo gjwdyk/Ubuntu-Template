@@ -76,6 +76,9 @@ PS C:\Users\hchandra>
 
 A help "menu" is also available with command: `wsl --help`.
 
+<details>
+<summary><b>Click here to expand <code>wsl --help</code> CLI Dump</b></summary>
+
 ```
 PS C:\Users\hchandra> wsl --help
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -290,6 +293,8 @@ Arguments for managing distributions in Windows Subsystem for Linux:
 PS C:\Users\hchandra>
 ```
 
+</details>
+
 <br><br><br>
 
 ***
@@ -297,6 +302,9 @@ PS C:\Users\hchandra>
 ### Install Ubuntu 24.04 LTS on WSL2
 
 The list of supported Linux OS on WSL2 can be obtained with command: `wsl --list --online`.
+
+<details>
+<summary><b>Click here to expand <code>wsl --list --online</code> CLI Dump</b></summary>
 
 ```
 PS C:\windows\system32> wsl --list --online
@@ -328,6 +336,8 @@ OracleLinux_9_5                 Oracle Linux 9.5
 SUSE-Linux-Enterprise-15-SP6    SUSE Linux Enterprise 15 SP6
 PS C:\windows\system32>
 ```
+
+</details>
 
 From the list above, we picked ***Ubuntu 24.04 LTS*** as at the time of writing *Ubuntu 26.04 LTS* is still very new, and we need to use a latest stable Ubuntu OS (i.e. having no compatibility issues with the GPU drivers).
 
@@ -411,6 +421,9 @@ Notes on Ubuntu Linux OS Prompt:
 
 By default, without additional module installation, the *Ubuntu 24.04 LTS* already includes the `nvidia-smi` (NVIDIA System Management Interface), a command-line utility used to monitor and manage NVIDIA GPU. It verifies that your Windows-based NVIDIA graphics driver and GPU are successfully recognized and passed through to your Linux environment.
 
+<details>
+<summary><b>Click here to expand <code>nvidia-smi</code> CLI Dump</b></summary>
+
 ```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ nvidia-smi
 Wed May 27 09:17:47 2026
@@ -436,11 +449,16 @@ Wed May 27 09:17:47 2026
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 ```
 
+</details>
+
 You can check how much CPU and RAM the Ubuntu Linux OS on the WSL2 has claimed from your host by running `top` command on the Ubuntu CLI Prompt. This will show you a live monitor of the virtualized CPU and Memory. You can cross-reference this with what you saw in the **WSL Settings** application (on the host Windows 11) to ensure the Ubuntu Linux OS VM is breathing properly.
 
-![Windows Start Menu - WSL Settings](01WindowsStartMenuWSLSettings.png)
+<p align="center"><img src="./01WindowsStartMenuWSLSettings.png" alt="Windows Start Menu - WSL Settings" width="42%"></p>
 
-![WSL Settings - Memory and Processor](02WSLSettingsMemoryAndProcessor.png)
+<p align="center"><img src="./02WSLSettingsMemoryAndProcessor.png" alt="WSL Settings - Memory and Processor" width="98%"></p>
+
+<details>
+<summary><b>Click here to expand <code>top</code> CLI Dump</b></summary>
 
 ```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ top
@@ -475,6 +493,8 @@ MiB Swap:   8192.0 total,   8192.0 free,      0.0 used.  31125.0 avail Mem
     693 ubuntu    20   0    9328   5608   3384 R   0.0   0.0   0:00.01 top
 ```
 
+</details>
+
 <br><br><br>
 
 ***
@@ -506,6 +526,9 @@ The command adds the following two lines to the end of `/etc/sudoers` file, with
 - [ ] `ubuntu   ALL=(ALL:ALL) NOPASSWD:ALL`
 
 You can check whether the lines had been successfully added, with `sudo cat /etc/sudoers` command.
+
+<details>
+<summary><b>Click here to expand <code>sudo cat /etc/sudoers</code> CLI Dump</b></summary>
 
 ```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo cat /etc/sudoers
@@ -577,6 +600,8 @@ ubuntu   ALL=(ALL:ALL) NOPASSWD:ALL
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 ```
 
+</details>
+
 You can also check whether functionality wise the `/etc/sudoers` file is OK (i.e. parse-able) and whether functionality wise things are still working fine. Some of the test commands are:
 
 - [ ] `sudo visudo -c`. Checks the syntax of the sudoers configuration file. It analyzes `/etc/sudoers` (and any files in `/etc/sudoers.d/`) for typos or formatting errors. If everything is correct, it returns parsed OK. If there's an error, it warns you before you accidentally lock yourself out of administrative privileges.
@@ -588,6 +613,9 @@ You can also check whether functionality wise the `/etc/sudoers` file is OK (i.e
 - [ ] `sudo -l -U root`. Lists the sudo privileges allowed for the user root. The -l flag lists privileges, and -U specifies the target user. Because root is the ultimate superuser, running this will typically show that root can run (ALL : ALL) ALL - meaning they can run any command, anywhere, as any user or group.
 
 - [ ] `sudo -l -U ubuntu`. Lists the sudo privileges allowed for the user ubuntu. This allows an administrator (or the ubuntu user themselves) to check exactly what permissions the ubuntu account has. It will print out the specific commands ubuntu user is authorized to run via sudo, or tell you if they aren't allowed to use sudo at all.
+
+<details>
+<summary><b>Click here to expand sudoers tests CLI Dump</b></summary>
 
 ```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo visudo -c
@@ -611,6 +639,8 @@ User ubuntu may run the following commands on F1NB7G4:
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 ```
 
+</details>
+
 <br><br><br>
 
 ***
@@ -619,6 +649,9 @@ ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 
 Sometimes, some Ubuntu sources may perform badly.
 You can change where your Ubuntu instance obtains its sources from, by changing the `/etc/apt/sources.list` which has been moved to `/etc/apt/sources.list.d/ubuntu.sources` file.
+
+<details>
+<summary><b>Click here to expand <code>sudo cat /etc/apt/sources.list</code> and <code>sudo cat /etc/apt/sources.list.d/ubuntu.sources</code> CLI Dump</b></summary>
 
 ```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo cat /etc/apt/sources.list
@@ -674,6 +707,8 @@ Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 ```
 
+</details>
+
 As you can see, basically there are only two sections on the `/etc/apt/sources.list.d/ubuntu.sources` file.
 
 - [ ] For general update sources.
@@ -702,7 +737,7 @@ Let's take example one of the closest mirrors with one of the largest bandwidth 
 - [ ] *Taiwan Digital Streaming Co. (archive)*. Use this if your instance runs on standard x86_64 / AMD64 / Intel 64-bit hardware (which is true for 95% of standard PCs, servers, and standard cloud VMs).
 - [ ] *Taiwan Digital Streaming Co. (ports)*. This site is for Ubuntu Ports. Use this only if your instance runs on alternative architectures like ARM (e.g., Raspberry Pi, Apple Silicon VMs, AWS Graviton instances), POWER, or RISC-V.
 
-![Ubuntu Mirror - Taiwan Digital Streaming](03UbuntuMirrorTaiwanDigitalStreaming.png)
+<p align="center"><img src="./03UbuntuMirrorTaiwanDigitalStreaming.png" alt="Ubuntu Mirror - Taiwan Digital Streaming" width="69%"></p>
 
 For each site, on the right side following the site name, there are protocols to connect to the site: `https`, `http` and `rsync`.
 Generally for standard apt configuration, you'd consider only `https` and `http`, with preferences/recommendations towards `https`.
@@ -730,6 +765,9 @@ Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 ```
 
 We can test the above configuration using command: `sudo apt update -y`.
+
+<details>
+<summary><b>Click here to expand <code>sudo apt update -y</code> CLI Dump</b></summary>
 
 ```
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$ sudo apt update -y
@@ -805,6 +843,8 @@ Reading state information... Done
 130 packages can be upgraded. Run 'apt list --upgradable' to see them.
 ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 ```
+
+</details>
 
 As you can see, all updates now retrieved from "https://mirror.twds.com.tw/ubuntu", including the "noble-security" (i.e. security update) suites.
 Subsequently, when you do `sudo apt upgrade -y` to actually download and install those upgrade modules, you can see:
