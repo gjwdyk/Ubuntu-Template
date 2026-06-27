@@ -2758,6 +2758,26 @@ ubuntu@F1NB7G4:/mnt/c/Users/hchandra$
 
 ***
 
+### Important Note on File System on WSL2's Guest OS
+
+As discussed above, part of Windows' folder structure is accessible from within the Guest OS.
+Your Windows' `%USERPROFILE%` is mounted as `/mnt/%USERPROFILE%` or `/mnt/%HOMEDRIVE%/%HOMEPATH%` (note that `%USERPROFILE%` = `%HOMEDRIVE%/%HOMEPATH%`).
+You're even default-ed to land on your Windows' `%USERPROFILE%` (i.e. `/mnt/%HOMEDRIVE%/%HOMEPATH%`) folder when you first login to the Guest OS.
+
+However there ***may*** be complications when you use Windows' folder structure from within the Guest OS, depending whether your access rights within Windows OS is limited or not (example: if you're on corporate machine).
+
+Further more, Windows' folder structure is under Windows' jurisdiction and Linux OS's requirements are not always compatible with Windows' way to manage file system.
+Access rights (drwxrwxrwx), owner and file locking mechanisms are different between Windows and Linux, plus there may be lacking of communications between the host Windows and guest Linux OS, that creates gaps in file management requirement(s) that makes Windows denying Linux OS request(s).
+
+For example: If you want to use Python Virtual Environment on the Windows' folder structure for example, where `ensurepip` module will modify system file permissions (like example: symlinks and execution rights), Windows will block those Linux permission adjustments.
+
+Recommendation: Unless you're storing static data manually by hand on those Windows' folder structure, stay away from Windows' folder structure.
+Don't include Windows' folder structure in any program and/or scripts.
+
+<br><br><br>
+
+***
+
 ## Clean-Up and Cloning
 
 ### Deleting the VM Instance
@@ -2892,6 +2912,10 @@ From the `dir` command, we can see the exported result is a file name `20260626-
 Compare with the original *Ubuntu-24.04-Base* instance's `ext4.vhdx` file size, which is around 18.1 GBytes, we have around 4.7 GBytes savings.
 
 If you want to keep the exported result `20260626-2036-Ubuntu-24.04-Base.tar` file as frozen template for future re-deployment/re-import (so you can quickly have good clean WSL2 VM instance), you can additionally compress the export result `.tar` file.
+
+<br><br><br>
+
+***
 
 To re-deploy/re-import the resulting `.tar` file, issue the following commands:
 
