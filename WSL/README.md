@@ -2769,7 +2769,7 @@ However there ***may*** be complications when you use Windows' folder structure 
 Further more, Windows' folder structure is under Windows' jurisdiction and Linux OS's requirements are not always compatible with Windows' way to manage file system.
 Access rights (drwxrwxrwx), owner and file locking mechanisms are different between Windows and Linux, plus there may be lacking of communications between the host Windows and guest Linux OS, that creates gaps in file management requirement(s) that makes Windows denying Linux OS request(s).
 
-For example: If you want to use Python Virtual Environment on the Windows' folder structure for example, where `ensurepip` module will modify system file permissions (like example: symlinks and execution rights), Windows will block those Linux permission adjustments.
+For example: If you want to use Python Virtual Environment on the Windows' folder structure, where `ensurepip` module will modify system file permissions (like example: symlinks and execution rights), Windows will block those Linux permission adjustments.
 
 Recommendation: Unless you're storing static data manually by hand on those Windows' folder structure, stay away from Windows' folder structure.
 Don't include Windows' folder structure in any program and/or scripts.
@@ -2995,15 +2995,33 @@ PS C:\Users\hchandra>
 
 ***
 
-## Configure the PyTorch to Access GPU
+## Install and Configure the PyTorch to Access GPU
 
-One of the Major reasons WSL2 is used, is because it allows the Guest OD to access the GPU for Machine-Learning/AI system implementation/demo, with relatively simple installation and/or configurations.
+One of the Major reasons WSL2 is used, is because it allows the Guest OS to access the GPU for Machine-Learning/AI system implementation/demo, with relatively simple installation and/or configurations.
+Most of AI implementation nowadays use Python Programming Language.
+So here we try to describe how to install PyTorch (Python library that tightly support AI development and support access to GPU).
 
+```
+cd ~
+sudo apt update && sudo apt upgrade -y
+sudo apt install python3-pip python3-venv -y
 
+mkdir AI_Training && cd AI_Training
+python3 -m venv AI_vEnv
+source AI_vEnv/bin/activate
 
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 
+python3
 
+import torch
+print(f"PyTorch Version: {torch.__version__}")
+print(f"Is CUDA available? {torch.cuda.is_available()}")
+print(f"Using GPU device: {torch.cuda.get_device_name(0)}")
+exit()
 
+deactivate
+```
 
 
 
