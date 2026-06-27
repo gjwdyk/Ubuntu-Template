@@ -2862,7 +2862,7 @@ The operation completed successfully.
 PS C:\Users\hchandra>
 ```
 
-Notes on the export command:
+Major Parameters of the export command:
 - [ ] `--export Ubuntu-24.04-Base`
 
   The `--export` option requires the Name of VM instance to be exported. In this case, the target is to export *Ubuntu-24.04-Base* instance.
@@ -2874,7 +2874,7 @@ Notes on the export command:
   It is recommended to enclose/wrap the path in double quotes "".
   The path includes a short script `$(Get-Date -Format 'yyyyMMdd-HHmm')` to embed Year-Month-Date-Hour-Minute information in yyyyMMdd-HHmm format into the file-name.
 
-Once the export command finished, you can `dir` the destination folder `C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base` to see its content.
+Once the export command finished successfully, you can `dir` the destination folder `C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base` to see its content.
 
 ```
 PS C:\Users\hchandra> dir C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base
@@ -2903,7 +2903,8 @@ wsl --import Ubuntu-24.04-Test C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test C:
 Note that: the destination folder `C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test` to hold the targeted *Ubuntu-24.04-Test* VM instance's installation files, must exist.
 Therefore we need the `mkdir C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test` command to ensure this.
 
-We don't like the standard/default installation folder which typically be `%USERPROFILE%\AppData\Local\wsl\{01234567-89ab-cdef-0123-456789abcdef}\` folder.
+In general, we don't like the standard/default installation folder which typically be `%USERPROFILE%\AppData\Local\wsl\{01234567-89ab-cdef-0123-456789abcdef}\` folder, so we don't choose path similar to the standard/default installation folder.
+Instead, we choose our own VM deployment folder `C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test`.
 
 ```
 PS C:\Users\hchandra> mkdir C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test
@@ -2917,7 +2918,7 @@ d-----         6/26/2026   8:39 PM                Ubuntu-24.04-Test
 PS C:\Users\hchandra>
 ```
 
-
+Once we ensure that the destination `C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test` installation folder exist, we can use it in the import command: `wsl --import Ubuntu-24.04-Test C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base\20260626-2036-Ubuntu-24.04-Base.tar`.
 
 ```
 PS C:\Users\hchandra> wsl --import Ubuntu-24.04-Test C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base\20260626-2036-Ubuntu-24.04-Base.tar
@@ -2925,7 +2926,20 @@ The operation completed successfully.
 PS C:\Users\hchandra>
 ```
 
+Major Parameters of the import command:
+- [ ] `--import Ubuntu-24.04-Test`
 
+  The `--import` option gives the *new* guest OS instance a local Name (which in this case *Ubuntu-24.04-Test*).
+
+- [ ] `C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test`
+
+  The following parameter is the folder where the *new* guest OS instance will be installed ***into***.
+
+- [ ] `C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-Base\20260626-2036-Ubuntu-24.04-Base.tar`
+
+  Next is the `.tar` file, from where the *new* guest OS instance will be installed ***from***.
+
+Once the import command finished successfully, you can `dir` the destination installation folder `C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test` to see its content.
 
 ```
 PS C:\Users\hchandra> dir C:\HC\VM\OS\WSL\Ubuntu-24.04\Ubuntu-24.04-Test
@@ -2940,7 +2954,10 @@ Mode                 LastWriteTime         Length Name
 PS C:\Users\hchandra>
 ```
 
+From the `dir` command, we can see the *Ubuntu-24.04-Test* instance's `ext4.vhdx` file size is around 13.8 GBytes.
+Compare with the original *Ubuntu-24.04-Base* instance's `ext4.vhdx` file size, which is around 18.1 GBytes, we have around 4.3 GBytes savings.
 
+Now that we have gone through the ***Export*** and Re-***Import***, we end up with two *Ubuntu-24.04* guest OS VMs on the WSL2, basically Cloning the *Ubuntu-24.04* guest OS (with note that the Clone result having smaller size or more compact vDisk).
 
 ```
 PS C:\Users\hchandra> wsl --list --verbose
@@ -2950,25 +2967,22 @@ PS C:\Users\hchandra> wsl --list --verbose
 PS C:\Users\hchandra>
 ```
 
-
-
-
-
-
-
-
-
-
-
-Blah Blah Blah
-
 <br><br><br>
 
 ***
 
-## Configure the Ubuntu/Python to Access GPU
+## Configure the PyTorch to Access GPU
 
-Blah Blah Blah.
+One of the Major reasons WSL2 is used, is because it allows the Guest OD to access the GPU for Machine-Learning/AI system implementation/demo, with relatively simple installation and/or configurations.
+
+
+
+
+
+
+
+
+
 
 <br><br><br>
 
