@@ -419,7 +419,7 @@ Notes on Ubuntu Linux OS Prompt:
 - [ ] `F1NB7G4` part will be your Windows 11 Device/Host Name.
 - [ ] Your `%USERPROFILE%` or *Home Path* is mounted as `/mnt/%HOMEDRIVE%/%HOMEPATH%`, and that will be the landing folder every time you launch/run the installed Ubuntu Linux OS.
 
-By default, without additional module installation, the *Ubuntu 24.04 LTS* already includes the `nvidia-smi` (NVIDIA System Management Interface), a command-line utility used to monitor and manage NVIDIA GPU. It verifies that your Windows-based NVIDIA graphics driver and GPU are successfully recognized and passed through to your Linux environment.
+By default, without additional module installation, the *Ubuntu 24.04 LTS* already includes the `nvidia-smi` ([NVIDIA System Management Interface](https://docs.nvidia.com/deploy/nvidia-smi/index.html)), a command-line utility used to monitor and manage NVIDIA GPU. It verifies that your Windows-based NVIDIA graphics driver and GPU are successfully recognized and passed through to your Linux environment.
 
 <details>
 <summary><b>Click here to expand <code>nvidia-smi</code> CLI Dump</b></summary>
@@ -3657,7 +3657,7 @@ The commands print out:
 - [ ] Whether your system has an NVIDIA GPU installed, the correct NVIDIA drivers are active, and PyTorch is built with CUDA support to utilize it. CUDA stands for ***C***ompute ***U***nified ***D***evice ***A***rchitecture. Developed by NVIDIA, it is a parallel computing platform and programming model that allows software developers to use an NVIDIA Graphics Processing Unit (GPU) for general-purpose processing.
 - [ ] Whether a GPU is detected and that CUDA is available. It returns the official name of your first NVIDIA GPU. If you pass 0 as the argument, it queries the default (first) GPU index. If you have multiple GPUs, you can pass 1, 2, etc., to get the names of your other graphics cards.
 
-If PyTorch stated that CUDA is available and PyTorch is able to fetch the name of your NVIDIA GPU, you have successfully installed PyTorch correctly.
+If PyTorch stated that CUDA is available and ***PyTorch is able to fetch the name of your NVIDIA GPU***, you have successfully installed PyTorch correctly.
 
 To exit from python3 prompt, type: `exit()`.
 
@@ -3889,8 +3889,12 @@ You will exit the Python `AI_vEnv` virtual environment into the outer shell: bas
 
   </details>
 
+- [ ] [Legacy CUDA GPU Compute Capability](https://developer.nvidia.com/cuda/gpus/legacy)
+- [ ] [CUDA GPU Compute Capability](https://developer.nvidia.com/cuda/gpus)
 
+  The above two reference list down NVIDIA GPUs with their respective Compute capability (CC).
 
+- [ ] [CUDA Toolkit Archive](https://developer.nvidia.com/cuda-toolkit-archive)
 
 
 
