@@ -2772,7 +2772,7 @@ Access rights (drwxrwxrwx), owner and file locking mechanisms are different betw
 For example: If you want to use Python Virtual Environment on the Windows' folder structure, where `ensurepip` module will modify system file permissions (like example: symlinks and execution rights), Windows will block those Linux permission adjustments.
 
 Recommendation: Unless you're storing static data manually by hand on those Windows' folder structure, stay away from Windows' folder structure.
-Don't include Windows' folder structure in any program and/or scripts.
+Don't include Windows' folder structure in any program and/or scripts within the Ubuntu Linux OS guest instance.
 
 <br><br><br>
 
@@ -3676,6 +3676,224 @@ ubuntu@F1NB7G4:~/AI_Training$
 ```
 
 You will exit the Python `AI_vEnv` virtual environment into the outer shell: bash shell of the Ubuntu Guest OS on the WSL2.
+
+<br><br><br>
+
+***
+
+### Some References for PyTorch (for other GPUs)
+
+- [ ] [https://download.pytorch.org/whl/](https://download.pytorch.org/whl/)
+
+  List of content under "https://download.pytorch.org/whl/" directory/folder.
+  Which you can see in between the list, the applicable cuXXX from which you can choose from, or experiment with.
+
+  <details>
+  <summary><b>Click to expand list of content under <code>https://download.pytorch.org/whl/</code> directory/folder</b></summary>
+
+  ```
+  certifi
+  charset-normalizer
+  cmake
+  colorama
+  cpu
+  cpu-cxx11-abi
+  cpu-pypi-pkg
+  cu100
+  cu101
+  cu102
+  cu110
+  cu111
+  cu113
+  cu115
+  cu116
+  cu117
+  cu117-pypi-cudnn
+  cu118
+  cu121
+  cu121-full
+  cu121-pypi-cudnn
+  cu124
+  cu124-full
+  cu126
+  cu126-full
+  cu128
+  cu128-full
+  cu129
+  cu130
+  cu132
+  cu75
+  cu80
+  cu90
+  cu91
+  cu92
+  cuda-bindings
+  cuda-pathfinder
+  cuda-python
+  dpcpp-cpp-rt
+  executorch
+  fbgemm-gpu
+  fbgemm-gpu-genai
+  filelock
+  flash-attn-3
+  flashinfer-python
+  fsspec
+  idna
+  impi-rt
+  importlib-metadata
+  intel-cmplr-lib-rt
+  intel-cmplr-lib-ur
+  intel-cmplr-lic-rt
+  intel-opencl-rt
+  intel-openmp
+  intel-pti
+  intel-sycl-rt
+  iopath
+  jinja2
+  lightning-utilities
+  lit
+  markupsafe
+  mkl
+  mpmath
+  mslk
+  mypy-extensions
+  networkx
+  nightly
+  numpy
+  nvidia-cublas
+  nvidia-cublas-cu11
+  nvidia-cublas-cu12
+  nvidia-cuda-cccl
+  nvidia-cuda-cccl-cu12
+  nvidia-cuda-cupti
+  nvidia-cuda-cupti-cu11
+  nvidia-cuda-cupti-cu12
+  nvidia-cuda-nvrtc
+  nvidia-cuda-nvrtc-cu11
+  nvidia-cuda-nvrtc-cu12
+  nvidia-cuda-runtime
+  nvidia-cuda-runtime-cu11
+  nvidia-cuda-runtime-cu12
+  nvidia-cudnn-cu11
+  nvidia-cudnn-cu12
+  nvidia-cudnn-cu13
+  nvidia-cufft
+  nvidia-cufft-cu11
+  nvidia-cufft-cu12
+  nvidia-cufile
+  nvidia-cufile-cu12
+  nvidia-curand
+  nvidia-curand-cu11
+  nvidia-curand-cu12
+  nvidia-cusolver
+  nvidia-cusolver-cu11
+  nvidia-cusolver-cu12
+  nvidia-cusparse
+  nvidia-cusparse-cu11
+  nvidia-cusparse-cu12
+  nvidia-cusparselt-cu12
+  nvidia-cusparselt-cu13
+  nvidia-nccl-cu11
+  nvidia-nccl-cu12
+  nvidia-nccl-cu13
+  nvidia-nvjitlink
+  nvidia-nvjitlink-cu12
+  nvidia-nvshmem-cu12
+  nvidia-nvshmem-cu13
+  nvidia-nvtx
+  nvidia-nvtx-cu11
+  nvidia-nvtx-cu12
+  oneccl
+  oneccl-devel
+  onemkl-license
+  onemkl-sycl-blas
+  onemkl-sycl-dft
+  onemkl-sycl-lapack
+  onemkl-sycl-rng
+  onemkl-sycl-sparse
+  packaging
+  pillow
+  portalocker
+  pyelftools
+  pyre-extensions
+  pytorch-triton
+  pytorch-triton-rocm
+  pytorch-triton-xpu
+  requests
+  rocm3.10
+  rocm3.7
+  rocm3.8
+  rocm4.0.1
+  rocm4.1
+  rocm4.2
+  rocm4.3.1
+  rocm4.5.2
+  rocm5.0
+  rocm5.1.1
+  rocm5.2
+  rocm5.3
+  rocm5.4.2
+  rocm5.5
+  rocm5.6
+  rocm5.7
+  rocm6.0
+  rocm6.1
+  rocm6.2
+  rocm6.2.4
+  rocm6.3
+  rocm6.4
+  rocm7.0
+  rocm7.1
+  rocm7.2
+  setuptools
+  sympy
+  tbb
+  tcmlib
+  test
+  torch
+  torch-cuda80
+  torch-model-archiver
+  torch-nightly
+  torch-no-python
+  torch-tb-profiler
+  torch-tensorrt
+  torch-tensorrt-rtx
+  torchao
+  torchaudio
+  torchcodec
+  torchcomms
+  torchcsprng
+  torchdata
+  torchdistx
+  torchmetrics
+  torchrec
+  torchrec-cpu
+  torchserve
+  torchtext
+  torchtune
+  torchvision
+  tqdm
+  triton
+  triton-rocm
+  triton-xpu
+  typing-extensions
+  typing-inspect
+  umf
+  urllib3
+  variant
+  vllm
+  xformers
+  xpu
+  zipp
+  ```
+
+  </details>
+
+
+
+
+
+
 
 <br><br><br>
 
