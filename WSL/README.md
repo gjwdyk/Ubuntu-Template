@@ -2778,6 +2778,31 @@ Don't include Windows' folder structure in any program and/or scripts.
 
 ***
 
+### Putting the VM Instance into Rest
+
+When you want to stop working in the Ubuntu Linux OS guest on the WSL2, and want to `sudo shutdown -h now` as usually done on bare-metal unit or VMware guest unit.
+***DO NOT*** do `sudo shutdown -h now` inside a WSL instance. WSL is containerized paravirtualization; the distribution instance doesn't own its own power button state.
+Running a standard Linux shutdown command will often throw an error; or exit the prompt but without shutting the underlying hypervisor framework down.
+
+***The Graceful Way***: Simply type **`exit`** (or press **`Ctrl + D`**) to leave the terminal prompt.
+Microsoft built an idle timeout tracker into the WSL engine.
+Once the last open bash window/process for a distribution is closed, *WSL automatically freezes the Ubuntu instance gracefully within a few seconds (estimated to be around 15 seconds)*.
+
+You can check how is the status of your Ubuntu instance by `wsl --list --verbose`.
+
+```
+PS C:\Users\hchandra> wsl --list --verbose
+  NAME                 STATE           VERSION
+* Ubuntu-24.04-Base    Stopped         2
+PS C:\Users\hchandra>
+```
+
+What you want is to have the `STATE` of your Linux OS Guest instance to be in **`Stopped`** state; to be sure that the Linux OS Guest instance had completely shut-down, for example before you shut-down your Windows OS host.
+
+<br><br><br>
+
+***
+
 ## Clean-Up and Cloning
 
 ### Deleting the VM Instance
@@ -2806,31 +2831,6 @@ PS C:\Users\hchandra>
 ```
 
 Once you've deleted *Ubuntu-24.04-Test*, you can recreate the same instance name, and start all over new from scratch.
-
-<br><br><br>
-
-***
-
-### Putting the VM Instance into Rest
-
-When you want to stop working in the Ubuntu Linux OS guest on the WSL2, and want to `sudo shutdown -h now` as usually done on bare-metal unit or VMware guest unit.
-***DO NOT*** do `sudo shutdown -h now` inside a WSL instance. WSL is containerized paravirtualization; the distribution instance doesn't own its own power button state.
-Running a standard Linux shutdown command will often throw an error; or exit the prompt but without shutting the underlying hypervisor framework down.
-
-***The Graceful Way***: Simply type **`exit`** (or press **`Ctrl + D`**) to leave the terminal prompt.
-Microsoft built an idle timeout tracker into the WSL engine.
-Once the last open bash window/process for a distribution is closed, *WSL automatically freezes the Ubuntu instance gracefully within a few seconds (estimated to be around 15 seconds)*.
-
-You can check how is the status of your Ubuntu instance by `wsl --list --verbose`.
-
-```
-PS C:\Users\hchandra> wsl --list --verbose
-  NAME                 STATE           VERSION
-* Ubuntu-24.04-Base    Stopped         2
-PS C:\Users\hchandra>
-```
-
-What you want is to have the `STATE` of your Linux OS Guest instance to be in **`Stopped`** state; to be sure that the Linux OS Guest instance had completely shut-down, for example before you shut-down your Windows OS host.
 
 <br><br><br>
 
