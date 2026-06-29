@@ -3708,6 +3708,7 @@ Using GPU device: NVIDIA RTX PRO 1000 Blackwell Generation Laptop GPU
 The error was caused by incompatible URL value (to be more specific: wrong cu number) for the `--index-url` option.
 The `cu124` used in the command is older than the GPU hardware used (NVIDIA RTX PRO 1000 Blackwell Generation Laptop GPU).
 And therefore the `cu124` software is unable to support the complete GPU's capabilities.
+The cu number is also called as ***PyTorch Software Wheel***.
 
 To understand how things are working in this setup (i.e. from your python script on Ubuntu guest, up to physical GPU below the Windows 11 host), below are simple graphs depicting the major components.
 
@@ -3737,7 +3738,7 @@ To understand how things are working in this setup (i.e. from your python script
 └────────────────────────┘
 ```
 
-Unfortunately there is no simple table (as of the writing of this document) which describes the mapping between which cu number you should use for different GPU hardware.
+Unfortunately there is no simple official table (as of the writing of this document) which describes the mapping between which PyTorch Software Wheel (cu number) you should use for different GPU hardware.
 
 Below are some references you can review, of what are the possible options you have.
 Although to know which of those options is your best choice, you need to do a bit of trial and error (or a lot of trial and error).
@@ -3745,7 +3746,7 @@ Although to know which of those options is your best choice, you need to do a bi
 - [ ] [https://download.pytorch.org/whl/](https://download.pytorch.org/whl/)
 
   List of content under "https://download.pytorch.org/whl/" directory/folder.
-  Which you can see in between the list, the applicable cuXXX (cu number) from which you can choose from, or experiment with.
+  Which you can see in between the list, the applicable PyTorch Software Wheel (i.e. cuXXX ; or cu number) from which you can choose from, or experiment with.
 
   <details>
   <summary><b>Click to expand list of content under <code>https://download.pytorch.org/whl/</code> directory/folder</b></summary>
@@ -3956,8 +3957,44 @@ Although to know which of those options is your best choice, you need to do a bi
   * **Compute Capability:** `7.5`, `8.6`, `9.0`, `12.0`
   * **`sm_` Number:** `sm_75`, `sm_86`, `sm_90`, `sm_120`
 
+  Below is an approximation approach to find out which PyTorch Software Wheel (cu number) you should install, from the GPU Name.
+
+  | If the GPU Model contains ... | The Architecture Name is ... | The Compute Capability (`sm_`) is ... |
+  | --- | --- | --- |
+  | **GTX 900** series / **M**-series Quadro | **Maxwell** | `sm_50` or `sm_52` |
+  | **GTX 1000** series / **P**-series Quadro (e.g., P4000) | **Pascal** | `sm_60` or `sm_61` |
+  | **Titan V** / **V100** | **Volta** | `sm_70` |
+  | **RTX 2000** series / **GTX 1600** series / **T**-series (e.g., T1000) | **Turing** | `sm_75` |
+  | **RTX 3000** series / **A**-series Laptop & Workstation (e.g., A2000, A4000) | **Ampere** | `sm_80` or `sm_86` |
+  | **RTX 4000** series / **L**-series Enterprise (e.g., L4) | **Ada Lovelace** | `sm_89` |
+  | **H100** / **H200** | **Hopper** | `sm_90` |
+  | **RTX 5000** series / **RTX PRO x000** (Blackwell generation) | **Blackwell** | `sm_120` |
+
+  You the important data/information you want to remember is the ***Architecture Name*** of the GPU.
+  You can use the Compute Capability (`sm_`) from the table above to cross-check with the two references above, whether you're on the right track or not.
+
+- [ ] [PyTorch CUDA Support Matrix](https://github.com/pytorch/pytorch/blob/main/RELEASE.md#pytorch-cuda-support-matrix)
+
+  Once you've obtained or deduced your GPU's Architecture Name, use Reference table above to find out which CUDA version / PyTorch Software Wheel (i.e. the cu number) supporting the Architecture Name you have in hand. 
+
 - [ ] [CUDA Toolkit Archive](https://developer.nvidia.com/cuda-toolkit-archive)
 
+  Contains the NVIDIA GPU drivers for Windows 11 host.
+  You may need to upgrade your Windows 11 NVIDIA GPU driver to be in sync with what's supported by PyTorch Software Wheel module.
+  Example: you may need to upgrade Windows 11 NVIDIA GPU driver to CUDA Toolkit 13.2 if your PyTorch Software Wheel require version 13.2 (i.e. cu132).
+
+Another approximation lookup table to select which PyTorch Software Wheel (cu number) from GPU Architecture (or Name).
+
+| If the GPU Architecture is ... | The `sm_` number is ... | Use this PyTorch `--index-url` suffix: | Notes/Remarks |
+| --- | --- | --- | --- |
+| **Maxwell** (GTX 900 series, M-series) | `sm_50`, `sm_52` | **`cu124`** or **`cu126`** | Dropped completely in CUDA 13.0+ packages. |
+| **Pascal** (GTX 1000 series, P-series) | `sm_60`, `sm_61` | **`cu124`** or **`cu126`** | Dropped completely in CUDA 13.0+ packages. |
+| **Volta** (Titan V, V100) | `sm_70` | **`cu126`** | Warning: Volta support is dropped in `cu128`+ packages. |
+| **Turing** (RTX 2000, GTX 1600, T4) | `sm_75` | Any: **`cu124`**, **`cu126`**, **`cu130`** | Highly flexible across multiple versions. |
+| **Ampere** (RTX 3000, A-series, A100) | `sm_80`, `sm_86` | Any: **`cu124`**, **`cu126`**, **`cu130`** | Fully optimized across all recent versions. |
+| **Ada Lovelace** (RTX 4000, L-series) | `sm_89` | Any: **`cu124`**, **`cu126`**, **`cu130`** | Fully optimized across all recent versions. |
+| **Hopper** (H100, H200) | `sm_90` | Any: **`cu124`**, **`cu126`**, **`cu130`** | Fully optimized across all recent versions. |
+| **Blackwell** (RTX 5000, B100, RTX Pro 1000) | `sm_100`, `sm_120` | **`cu130`** or higher | **Will fail entirely** on `cu124` or lower. |
 
 
 
