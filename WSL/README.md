@@ -2781,7 +2781,7 @@ Don't include Windows' folder structure in any program and/or scripts within the
 ### Putting the VM Instance into Rest
 
 When you want to stop working in the Ubuntu Linux OS guest on the WSL2, and want to `sudo shutdown -h now` as usually done on bare-metal unit or VMware guest unit.
-***DO NOT*** do `sudo shutdown -h now` inside a WSL instance. WSL is containerized paravirtualization; the distribution instance doesn't own its own power button state.
+***DO NOT*** do `sudo shutdown -h now` inside a WSL instance. WSL is containerized paravirtualization; the Linux OS guest instance doesn't have its own power button state.
 Running a standard Linux shutdown command will often throw an error; or exit the prompt but without shutting the underlying hypervisor framework down.
 
 ***The Graceful Way***: Simply type **`exit`** (or press **`Ctrl + D`**) to leave the terminal prompt.
@@ -3683,10 +3683,69 @@ You will exit the Python `AI_vEnv` virtual environment into the outer shell: bas
 
 ### Some References for PyTorch (for other GPUs)
 
+When you have different GPU (from the one used in the test for this document), you ***may*** hit some error similar to the below.
+The below error message was installed with command: `pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124`.
+
+```
+(AI_vEnv) ubuntu@F1NB7G4:~/AI_Training$ python3
+Python 3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import torch
+>>> print(f"PyTorch Version: {torch.__version__}")
+PyTorch Version: 2.6.0+cu124
+>>> print(f"Is CUDA available? {torch.cuda.is_available()}")
+Is CUDA available? True
+>>> print(f"Using GPU device: {torch.cuda.get_device_name(0)}")
+/home/ubuntu/AI_Training/AI_vEnv/lib/python3.12/site-packages/torch/cuda/__init__.py:235: UserWarning:
+NVIDIA RTX PRO 1000 Blackwell Generation Laptop GPU with CUDA capability sm_120 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_50 sm_60 sm_70 sm_75 sm_80 sm_86 sm_90.
+If you want to use the NVIDIA RTX PRO 1000 Blackwell Generation Laptop GPU GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+  warnings.warn(
+Using GPU device: NVIDIA RTX PRO 1000 Blackwell Generation Laptop GPU
+>>>
+```
+
+The error was caused by incompatible URL value (to be more specific: wrong cu number) for the `--index-url` option.
+The `cu124` used in the command is older than the GPU hardware used (NVIDIA RTX PRO 1000 Blackwell Generation Laptop GPU).
+And therefore the `cu124` software is unable to support the complete GPU's capabilities.
+
+To understand how things are working in this setup (i.e. from your python script on Ubuntu guest, up to physical GPU below the Windows 11 host), below are simple graphs depicting the major components.
+
+```
+┌────────────────────────┐
+│   Your Python Script   │
+└───────────┬────────────┘
+            │
+┌───────────┴────────────┐
+│    PyTorch Library     │
+└───────────┬────────────┘
+            │
+┌───────────┴────────────┐
+│ PyTorch Software Wheel │   (e.g., cu124, cu126, cu128, cu132, etc. / CUDA Run-time)
+└───────────┬────────────┘
+            │
+┌───────────┴────────────┐
+│ WSL2 Linux User space  │   (libcuda.so - provided by NVIDIA WSL driver)
+└───────────┬────────────┘
+            │
+┌───────────┴────────────┐
+│  Windows Host Kernel   │   (NVIDIA Windows Display Driver - nvlddmkm.sys)
+└───────────┬────────────┘
+            │
+┌───────────┴────────────┐
+│ Physical GPU Hardware  │
+└────────────────────────┘
+```
+
+Unfortunately there is no simple table (as of the writing of this document) which describes the mapping between which cu number you should use for different GPU hardware.
+
+Below are some references you can review, of what are the possible options you have.
+Although to know which of those options is your best choice, you need to do a bit of trial and error (or a lot of trial and error).
+
 - [ ] [https://download.pytorch.org/whl/](https://download.pytorch.org/whl/)
 
   List of content under "https://download.pytorch.org/whl/" directory/folder.
-  Which you can see in between the list, the applicable cuXXX from which you can choose from, or experiment with.
+  Which you can see in between the list, the applicable cuXXX (cu number) from which you can choose from, or experiment with.
 
   <details>
   <summary><b>Click to expand list of content under <code>https://download.pytorch.org/whl/</code> directory/folder</b></summary>
@@ -3893,6 +3952,9 @@ You will exit the Python `AI_vEnv` virtual environment into the outer shell: bas
 - [ ] [CUDA GPU Compute Capability](https://developer.nvidia.com/cuda/gpus)
 
   The above two reference list down NVIDIA GPUs with their respective Compute capability (CC).
+  On the Warning message above: `NVIDIA RTX PRO 1000 Blackwell Generation Laptop GPU with CUDA capability sm_120 is not compatible with the current PyTorch installation. The current PyTorch install supports CUDA capabilities sm_50 sm_60 sm_70 sm_75 sm_80 sm_86 sm_90.`, you see sm_ number, sm_ number is identical to Compute capability (CC).
+  * **Compute Capability:** `7.5`, `8.6`, `9.0`, `12.0`
+  * **`sm_` Number:** `sm_75`, `sm_86`, `sm_90`, `sm_120`
 
 - [ ] [CUDA Toolkit Archive](https://developer.nvidia.com/cuda-toolkit-archive)
 
