@@ -3996,6 +3996,20 @@ Another approximation lookup table to select which PyTorch Software Wheel (cu nu
 | **Hopper** (H100, H200) | `sm_90` | Any: **`cu124`**, **`cu126`**, **`cu130`** | Fully optimized across all recent versions. |
 | **Blackwell** (RTX 5000, B100, RTX Pro 1000) | `sm_100`, `sm_120` | **`cu130`** or higher | **Will fail entirely** on `cu124` or lower. |
 
+For example:
+* "NVIDIA RTX PRO 1000 Blackwell Generation Laptop GPU" has both "RTX PRO X000" and "Blackwell" strings in its name.
+* The Compute Capability should be 12.0 (i.e. sm_120), and its Architecture Name is "Blackwell" (refer to both tables above as well as [CUDA GPU Compute Capability](https://developer.nvidia.com/cuda/gpus))
+* From [PyTorch CUDA Support Matrix](https://github.com/pytorch/pytorch/blob/main/RELEASE.md#pytorch-cuda-support-matrix) and the table above, we see that Architecture Name "Blackwell" is supported by CUDA version 13.0.2 and 13.2.1 (i.e. **`cu130`** and **`cu132`**)
+
+Another example:
+* "NVIDIA GeForce RTX 2060" has "RTX 20X0" in its name.
+* The Compute Capability should be 7.5 (i.e. sm_75), and its Architecture Name is "Turing" (refer to both tables above as well as [CUDA GPU Compute Capability](https://developer.nvidia.com/cuda/gpus))
+* From [PyTorch CUDA Support Matrix](https://github.com/pytorch/pytorch/blob/main/RELEASE.md#pytorch-cuda-support-matrix) and the table above, we see that Architecture Name "Turing" is supported by CUDA version 12.6.3, 13.0.2 and 13.2.1 (i.e. **`cu126`** and **`cu130`** ; or even **`cu124`** and **`cu132`**)
+
+
+
+
+
 
 
 <br><br><br>
