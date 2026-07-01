@@ -4152,10 +4152,7 @@ Is XPU available? True
 Using GPU device: Intel(R) Graphics [0x7d55]
 ```
 
-
-[IntelGPU.md](IntelGPU.md)
-
-
+[CLI Dumps of WSL2, Ubuntu 24.04 and PyTorch on Intel GPU](IntelGPU.md) depicts collections of CLI Dump commands; step by step from installation of the WSL2 virtualization frameworks, base configurations of Ubuntu-24.04 Guest OS, export and import images, configuration of the Ubuntu-24.04 Guest OS for Intel's software components, Python and PyTorch for Intel's Integrated GPU, Testing and Stress Test.
 
 <br><br><br>
 
