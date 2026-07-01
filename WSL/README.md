@@ -4077,26 +4077,24 @@ What about Intel's Integrated Graphics?
 Example CPU **Intel Core Ultra 9 185H**, it comes with integrated GPU called **Intel Arc Graphics**, and NPU called **Intel AI Boost**.
 You *can* use the integrated GPU for AI acceleration.
 Intel developed an open-source framework called **oneAPI** and a backend engine called **SYCL** to compete with NVIDIA's CUDA.
-
-PyTorch now officially supports Intel GPUs natively through the standard software stack.
+And PyTorch now supports Intel GPUs natively through the standard software stack.
 
 <br>
 
 How to install and configure PyTorch for the Intel machine?
-As of the time writing this document.
+As of the time writing this document, below are the items you must pay attention to:
 
 - [ ] The Windows Host (The Driver Layer)
-  Intel CPU/GPU relies heavily on host-level driver mappings.
+  Intel CPU/GPU relies on host-level driver mappings.
   Make sure Windows 11 Intel Graphics Driver is completely up to date.
   You want to be running the latest Intel Graphics Driver available via Windows Update or Intel's Driver & Support Assistant.
 
 - [ ] Inside Ubuntu 24.04 (The Compute Layer)
-  WSL2 maps the physical GPU into Linux as a "render node" (usually found at /dev/dri/renderD128).
+  WSL2 maps the physical GPU into Linux as a "render node".
   To interact with it, your Ubuntu instance needs the underlying compute runtimes.
 
-  Open your WSL2 Ubuntu CLI terminal and perform the following configurations:
+  - [ ] Install the Intel Graphics Compute Runtimes.
 
-  - [ ] Install the Intel Graphics Compute Runtimes
     You need to add Intel’s official package repository to Ubuntu to fetch the hardware translation libraries (Level Zero and OpenCL).
     Run these commands:
 
@@ -4112,7 +4110,8 @@ As of the time writing this document.
     sudo apt install -y intel-opencl-icd intel-level-zero-gpu level-zero
     ```
 
-  - [ ] Adjust Permissions
+  - [ ] Adjust Permissions.
+
     By default, standard Linux users don't have direct access to hardware acceleration nodes.
     You need to assign your Ubuntu user account to the video and render groups:
 
@@ -4121,17 +4120,15 @@ As of the time writing this document.
     sudo usermod -aG render $USER
     ```
 
-    ***Important***: Close your WSL CLI terminal completely and reopen it for these group permission changes to apply!)
+    ***Important***: Close your WSL CLI terminal completely and reopen it for these group permission changes to apply!
 
-Once you've ensure the two items above, pull the Software Wheel from the specific XPU-enabled wheel.
+Once you've ensure the two items (and sub-items) above; during PyTorch installation, pull the Software Wheel from the specific XPU-enabled wheel.
 
 ```
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu
 ```
 
-<br>
-
-Instead of targeting `cuda`, the code on the Intel machine must explicitly target Intel's compute device layer, known as **`xpu`**:
+Then, in your Python script, instead of targeting `cuda`, the code on the Intel machine must explicitly target Intel's compute device layer, known as **`xpu`**:
 
 ```
 import torch
@@ -4142,8 +4139,21 @@ print(f"Using GPU device: {torch.xpu.get_device_name(0)}" if xpu_available else 
 exit()
 ```
 
+Example result:
+
+```
+>>> import torch
+>>> print(f"PyTorch Version: {torch.__version__}")
+PyTorch Version: 2.12.1+xpu
+>>> xpu_available = torch.xpu.is_available()
+>>> print(f"Is XPU available? {xpu_available}")
+Is XPU available? True
+>>> print(f"Using GPU device: {torch.xpu.get_device_name(0)}" if xpu_available else "No Intel XPU device detected.")
+Using GPU device: Intel(R) Graphics [0x7d55]
+```
 
 
+[IntelGPU.md](IntelGPU.md)
 
 
 
