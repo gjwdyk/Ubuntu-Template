@@ -1785,6 +1785,8 @@ PS C:\Users\Hendry Chandra>
 
 ### Create Template (Clone and Compress)
 
+Ensure Guest OS instance is in **`Stopped`** state.
+
 ```
 PS C:\Users\Hendry Chandra> wsl --list --verbose
   NAME               STATE           VERSION
@@ -1876,7 +1878,7 @@ PS C:\Users\Hendry Chandra>
 
 ***
 
-### Install and Configure PyTorch for Intel's Integrated GPU
+## Install and Configure PyTorch for Intel's Integrated GPU
 
 ```
 PS C:\Users\Hendry Chandra> wsl --distribution Ubuntu-24.04-PyTorch-XPU
@@ -1910,6 +1912,12 @@ Avoid working on Window's Folder Structure.
 ubuntu@Hen-Chan-X-Man:/mnt/c/Users/Hendry Chandra$ cd $HOME
 ubuntu@Hen-Chan-X-Man:~$
 ```
+
+<br><br><br>
+
+***
+
+### Intel Graphics Compute Runtimes
 
 Configure Intel's Repository.
 
@@ -2087,6 +2095,12 @@ PS C:\Users\Hendry Chandra> wsl --list --verbose
 * Ubuntu-24.04-PyTorch-XPU    Stopped         2
 PS C:\Users\Hendry Chandra>
 ```
+
+<br><br><br>
+
+***
+
+### Python3
 
 ReOpen Guest OS CLI terminal and go to `$HOME` folder.
 
@@ -2474,7 +2488,7 @@ ubuntu@Hen-Chan-X-Man:~$
 
 </details>
 
-
+Create Python virtual environment (vEnv) and activate it.
 
 ```
 ubuntu@Hen-Chan-X-Man:~$ mkdir Python-vEnv && cd Python-vEnv
@@ -2491,7 +2505,18 @@ ubuntu@Hen-Chan-X-Man:~/Python-vEnv$ source PyTorch-vEnv/bin/activate
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv$
 ```
 
+<br><br><br>
 
+***
+
+### PyTorch with XPU
+
+Install PyTorch with XPU Software Wheel, inside the Python vEnv.
+
+<details>
+<summary><b><code>pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu</code></b></summary>
+
+```
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv$ pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu
 Looking in indexes: https://download.pytorch.org/whl/xpu
 Collecting torch
@@ -2641,25 +2666,39 @@ Downloading pyelftools-0.32-py3-none-any.whl (188 kB)
 Installing collected packages: torchaudio, tcmlib, pyelftools, onemkl-license, mpmath, intel-pti, intel-cmplr-lic-rt, intel-cmplr-lib-rt, impi-rt, umf, typing-extensions, triton-xpu, tbb, sympy, setuptools, pillow, numpy, networkx, MarkupSafe, fsspec, filelock, jinja2, intel-opencl-rt, intel-cmplr-lib-ur, intel-sycl-rt, intel-openmp, oneccl, mkl, dpcpp-cpp-rt, onemkl-sycl-rng, onemkl-sycl-dft, onemkl-sycl-blas, oneccl-devel, onemkl-sycl-sparse, onemkl-sycl-lapack, torch, torchvision
 Successfully installed MarkupSafe-3.0.3 dpcpp-cpp-rt-2025.3.2 filelock-3.29.0 fsspec-2026.4.0 impi-rt-2021.17.2 intel-cmplr-lib-rt-2025.3.2 intel-cmplr-lib-ur-2025.3.2 intel-cmplr-lic-rt-2025.3.2 intel-opencl-rt-2025.3.2 intel-openmp-2025.3.2 intel-pti-0.16.0 intel-sycl-rt-2025.3.2 jinja2-3.1.6 mkl-2025.3.1 mpmath-1.3.0 networkx-3.6.1 numpy-2.4.4 oneccl-2021.17.2 oneccl-devel-2021.17.2 onemkl-license-2025.3.1 onemkl-sycl-blas-2025.3.1 onemkl-sycl-dft-2025.3.1 onemkl-sycl-lapack-2025.3.1 onemkl-sycl-rng-2025.3.1 onemkl-sycl-sparse-2025.3.1 pillow-12.2.0 pyelftools-0.32 setuptools-70.2.0 sympy-1.14.0 tbb-2022.3.1 tcmlib-1.4.1 torch-2.12.1+xpu torchaudio-2.11.0+xpu torchvision-0.27.1+xpu triton-xpu-3.7.1 typing-extensions-4.15.0 umf-1.0.3
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv$
+```
 
+</details>
 
+<br><br><br>
 
+***
+
+### Test
+
+Test the installation, go to `python3`.
+
+```
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv$ python3
 Python 3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
+```
 
+Copy paste the following python script one-line by one-line.
 
-
+```
 import torch
 print(f"PyTorch Version: {torch.__version__}")
 xpu_available = torch.xpu.is_available()
 print(f"Is XPU available? {xpu_available}")
 print(f"Using GPU device: {torch.xpu.get_device_name(0)}" if xpu_available else "No Intel XPU device detected.")
 exit()
+```
 
+Example result.
 
-
+```
 >>> import torch
 >>> print(f"PyTorch Version: {torch.__version__}")
 PyTorch Version: 2.12.1+xpu
@@ -2670,11 +2709,30 @@ Is XPU available? True
 Using GPU device: Intel(R) Graphics [0x7d55]
 >>> exit()
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv$
+```
 
+Exit from Python virtual environment.
 
-
+```
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv$ deactivate
+ubuntu@Hen-Chan-X-Man:~/Python-vEnv$
+```
+
+<br><br><br>
+
+***
+
+### Clean Up and Templatize
+
+```
 ubuntu@Hen-Chan-X-Man:~/Python-vEnv$ cd ~
+ubuntu@Hen-Chan-X-Man:~$
+```
+
+<details>
+<summary><b><code>sudo apt autoremove</code></b>,<b><code>sudo apt autoclean</code></b>,<b><code>sudo apt-get autoremove</code></b>,<b><code>sudo apt-get autoclean</code></b></summary>
+
+```
 ubuntu@Hen-Chan-X-Man:~$ sudo apt autoremove
 Reading package lists... Done
 Building dependency tree... Done
@@ -2712,11 +2770,21 @@ Reading package lists... Done
 Building dependency tree... Done
 Reading state information... Done
 ubuntu@Hen-Chan-X-Man:~$
+```
 
+</details>
 
+Exit Guest OS's CLI terminal completely.
 
+```
 ubuntu@Hen-Chan-X-Man:~$ exit
 logout
+PS C:\Users\Hendry Chandra>
+```
+
+Make sure the Guest OS reach `Stopped` state.
+
+```
 PS C:\Users\Hendry Chandra> wsl --list --verbose
   NAME                        STATE           VERSION
 * Ubuntu-24.04-PyTorch-XPU    Running         2
@@ -2724,9 +2792,9 @@ PS C:\Users\Hendry Chandra> wsl --list --verbose
   NAME                        STATE           VERSION
 * Ubuntu-24.04-PyTorch-XPU    Stopped         2
 PS C:\Users\Hendry Chandra>
+```
 
-
-
+```
 PS C:\Users\Hendry Chandra> mkdir C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-PyTorch-XPU
 
     Directory: C:\HC\VM\BackUp\WSL\Ubuntu-24.04
@@ -2735,9 +2803,17 @@ Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
 d-----        2026 06 30     13:43                Ubuntu-24.04-PyTorch-XPU
 
+PS C:\Users\Hendry Chandra>
+```
+
+```
 PS C:\Users\Hendry Chandra> wsl --export Ubuntu-24.04-PyTorch-XPU "C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-PyTorch-XPU\$(Get-Date -Format 'yyyyMMdd-HHmm')-Ubuntu-24.04-PyTorch-XPU.tar"
 Export in progress, this may take a few minutes. (13916 MB)
 The operation completed successfully.
+PS C:\Users\Hendry Chandra>
+```
+
+```
 PS C:\Users\Hendry Chandra> dir C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-PyTorch-XPU
 
     Directory: C:\HC\VM\BackUp\WSL\Ubuntu-24.04\Ubuntu-24.04-PyTorch-XPU
@@ -2747,20 +2823,46 @@ Mode                 LastWriteTime         Length Name
 -a----        2026 06 30     13:44    14592972800 20260630-1343-Ubuntu-24.04-PyTorch-XPU.tar
 
 PS C:\Users\Hendry Chandra>
+```
 
+<br><br><br>
 
+***
 
+### Stress Test
 
+Open Guest OS CLI terminal.
 
-
-
-
-
+```
 PS C:\Users\Hendry Chandra> wsl --distribution Ubuntu-24.04-PyTorch-XPU
+ubuntu@Hen-Chan-X-Man:/mnt/c/Users/Hendry Chandra$
+```
+
+Avoid working in Windows Folder Structure.
+
+```
 ubuntu@Hen-Chan-X-Man:/mnt/c/Users/Hendry Chandra$ cd ~
+ubuntu@Hen-Chan-X-Man:~$
+```
+
+```
 ubuntu@Hen-Chan-X-Man:~$ cd Python-vEnv/
+ubuntu@Hen-Chan-X-Man:~/Python-vEnv$
+```
+
+Activate Python virtual environment.
+
+```
 ubuntu@Hen-Chan-X-Man:~/Python-vEnv$ source PyTorch-vEnv/bin/activate
+(PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv$
+```
+
+```
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv$ cd PyTorch-vEnv/
+(PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv/PyTorch-vEnv$
+```
+
+```
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv/PyTorch-vEnv$ ls -lap
 total 56
 drwxr-xr-x 10 ubuntu ubuntu  4096 Jun 30 13:55 ./
@@ -2776,6 +2878,12 @@ drwxr-xr-x  3 ubuntu ubuntu  4096 Jun 30 13:04 licensing/
 drwxr-xr-x  4 ubuntu ubuntu  4096 Jun 30 13:05 opt/
 -rw-r--r--  1 ubuntu ubuntu   176 Jun 30 12:55 pyvenv.cfg
 drwxr-xr-x  5 ubuntu ubuntu  4096 Jun 30 13:05 share/
+(PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv/PyTorch-vEnv$
+```
+
+Stress Test script.
+
+```
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv/PyTorch-vEnv$ cat StressTest.py
 import torch
 import time
@@ -2802,6 +2910,11 @@ try:
 except KeyboardInterrupt:
     print("\nStress test stopped cleanly.")
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv/PyTorch-vEnv$
+```
+
+Run the Stress Test script.
+
+```
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv/PyTorch-vEnv$ python3 StressTest.py
 Targeting Device: Intel(R) Graphics [0x7d55]
 Allocating matrices of size 8000x8000 on XPU...
@@ -2809,12 +2922,7 @@ Starting matrix multiplication loop. Press Ctrl+C to stop.
 ^C
 Stress test stopped cleanly.
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv/PyTorch-vEnv$
-
-
-
-
-
-
+```
 
 
 
