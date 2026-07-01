@@ -2924,14 +2924,13 @@ Stress test stopped cleanly.
 (PyTorch-vEnv) ubuntu@Hen-Chan-X-Man:~/Python-vEnv/PyTorch-vEnv$
 ```
 
+While the Stress Test script is running check "Windows Task Manager" under "Performance" of the "GPU 0"
 
+![Windows Task Manager - Performance GPU 0](09WindowsTaskManagerPerformanceGPU0.png)
 
+Click the down arrow **`˅`** before either "3D", "Copy", "Video Decode" or "Video Processing" and select "Compute" or "Compute_0".
 
-
-
-
-
-
+![Windows Task Manager - Performance GPU 0 - Compute](10WindowsTaskManagerPerformanceGPU0Compute.png)
 
 
 
