@@ -24,63 +24,70 @@ Note that this document focus only on [WSL2](https://learn.microsoft.com/en-us/w
 
 ## WSL2 Installation on Windows 11
 
-Blah Blah Blah.
-
-<br><br><br>
-
-***
-
-## Ubuntu Installation on WSL2
-
-### Ensure the WSL2 virtualization framework is working
-
-Open **Windows PowerShell** or **Command Prompt** and run: `wsl --list --verbose` or `wsl -l -v`.
-
-If you've never used the WSL2 virtualization framework before, typically the output will be similar to below CLI dump:
+In the case that the WSL2 virtualization framework has NOT been installed on your machine, open **Windows PowerShell** or **Command Prompt** and run: `wsl --status`, and it will display the respective status of the WSL2 virtualization framework.
 
 ```
-PS C:\Users\hchandra> wsl --list --verbose
-Windows Subsystem for Linux has no installed distributions.
-You can resolve this by installing a distribution with the instructions below:
-
-Use 'wsl.exe --list --online' to list available distributions
-and 'wsl.exe --install <Distro>' to install.
-PS C:\Users\hchandra>
+PS C:\Users\Hendry Chandra> wsl --status
+The Windows Subsystem for Linux is not installed. You can install by running 'wsl.exe --install'.
+For more information please visit https://aka.ms/wslinstall
+PS C:\Users\Hendry Chandra>
 ```
 
-This means the underlying WSL2 engine is ready, only the actual Ubuntu Linux OS isn't installed yet.
-
-If you used the WSL2 virtualization framework before on your machine, you ***may*** see a Linux OS like `Ubuntu` listed.
-In this case, pay attention at the **VERSION** column. It must say **2** to support GPU acceleration.
+And the `wsl --help` command also display only the applicable set of command options.
 
 ```
-PS C:\Users\hchandra> wsl --list --verbose
-  NAME                 STATE           VERSION
-* Ubuntu-24.04-Base    Stopped         2
-PS C:\Users\hchandra>
+PS C:\Users\Hendry Chandra> wsl --help
+Copyright (c) Microsoft Corporation. All rights reserved.
+Usage: wsl.exe [Argument]
+Arguments:
+    --install
+        Install Windows Subsystem for Linux. If no options are specified,
+        the recommended features will be installed along with the default distribution.
+        For a full list of install options please visit https://aka.ms/wslinstall.
+    --update
+        Update to the latest version of Windows Subsystem for Linux.
+    --status
+        Show the status of Windows Subsystem for Linux.
+    --help
+        Display usage information.
+PS C:\Users\Hendry Chandra>
 ```
 
-Furthermore, you can also get more versioning information with command: `wsl --version`.
+To install WSL2 virtualization framework, you need to run only one single command: **`wsl --install`** within PowerShell in ***administrator mode*** , then ***restart your machine***.
+
+![Windows PowerShell - Install WSL2](04WindowsPowerShellInstallWSL2.png)
+
+Once you've ***restart your machine***, you can tell that WSL2 has been installed even without opening Windows PowerShell or Command Prompt.
+On Windows' File Explorer, you will see additional icon (i.e. of the famous Linux's Penguin) at the bottom of Navigation Pane.
+
+![File Explorer - Navigation Pane - Linux Icon](05FileExplorerNavigationPaneLinuxIcon.png)
+
+On your Windows' Start Menu, you will also see additional items related to WSL2.
+
+![Windows Start Menu - WSL Items](06WindowsStartMenuWSLItems.png)
+
+Clicking on ***WSL Settings*** will open a window to configure the WSL2 virtualization framework.
+
+![Windows Subsystem for Linux Settings - Memory and Processor](07WindowsSubsystem4LinuxSettingsMemoryNProcessor.png)
+
+And when you do open **Windows PowerShell** or **Command Prompt**, and type the same command as before, the result differs.
+`wsl --status` command now reflects the current status.
 
 ```
-PS C:\Users\hchandra> wsl --version
-WSL version: 2.7.3.0
-Kernel version: 6.6.114.1-1
-WSLg version: 1.0.73
-MSRDC version: 1.2.6676
-Direct3D version: 1.611.1-81528511
-DXCore version: 10.0.26100.1-240331-1435.ge-release
-Windows version: 10.0.26200.8390
-PS C:\Users\hchandra>
+PS C:\Users\Hendry Chandra> wsl --status
+Default Version: 2
+WSL1 is not supported with your current machine configuration.
+Please enable the "Windows Subsystem for Linux" optional component to use WSL1.
+PS C:\Users\Hendry Chandra>
 ```
 
-A help "menu" is also available with command: `wsl --help`.
+And `wsl --help` command now reveals so much more information related to WSL command options.
 
 <details>
 <summary><b>Click here to expand <code>wsl --help</code> CLI Dump</b></summary>
 
 ```
-PS C:\Users\hchandra> wsl --help
+PS C:\Users\Hendry Chandra> wsl --help
 Copyright (c) Microsoft Corporation. All rights reserved.
 For privacy information about this product please visit https://aka.ms/privacy.
 
@@ -290,10 +297,64 @@ Arguments for managing distributions in Windows Subsystem for Linux:
 
     --unregister <Distro>
         Unregisters the distribution and deletes the root filesystem.
-PS C:\Users\hchandra>
+PS C:\Users\Hendry Chandra>
 ```
 
 </details>
+
+Furthermore, you can also get more versioning information (of the WSL2 virtualization framework itself) with command: `wsl --version`.
+
+```
+PS C:\Users\Hendry Chandra> wsl --version
+WSL version: 2.7.10.0
+Kernel version: 6.18.33.2-2
+WSLg version: 1.0.73.2
+MSRDC version: 1.2.6676
+Direct3D version: 1.611.1-81528511
+DXCore version: 10.0.26100.1-240331-1435.ge-release
+Windows version: 10.0.26200.8655
+PS C:\Users\Hendry Chandra> wsl --list --verbose
+Windows Subsystem for Linux has no installed distributions.
+You can resolve this by installing a distribution with the instructions below:
+
+Use 'wsl.exe --list --online' to list available distributions
+and 'wsl.exe --install <Distro>' to install.
+PS C:\Users\Hendry Chandra>
+```
+
+<br><br><br>
+
+***
+
+## Ubuntu Installation on WSL2
+
+### Ensure the WSL2 virtualization framework is working
+
+Open **Windows PowerShell** or **Command Prompt** and run: `wsl --list --verbose` or `wsl -l -v`.
+
+If you've never used the WSL2 virtualization framework before, typically the output will be similar to below CLI dump:
+
+```
+PS C:\Users\hchandra> wsl --list --verbose
+Windows Subsystem for Linux has no installed distributions.
+You can resolve this by installing a distribution with the instructions below:
+
+Use 'wsl.exe --list --online' to list available distributions
+and 'wsl.exe --install <Distro>' to install.
+PS C:\Users\hchandra>
+```
+
+This means the underlying WSL2 engine is ready, only the actual Ubuntu Linux OS isn't installed yet.
+
+If you used the WSL2 virtualization framework before on your machine, you ***may*** see a Linux OS like `Ubuntu` listed.
+In this case, pay attention at the **VERSION** column. It must say **2** to support GPU acceleration.
+
+```
+PS C:\Users\hchandra> wsl --list --verbose
+  NAME                 STATE           VERSION
+* Ubuntu-24.04-Base    Stopped         2
+PS C:\Users\hchandra>
+```
 
 <br><br><br>
 
@@ -3681,7 +3742,7 @@ You will exit the Python `AI_vEnv` virtual environment into the outer shell: bas
 
 ***
 
-### Some References for PyTorch (for other GPUs)
+### Some References for PyTorch (for other NVIDIA GPUs)
 
 When you have different GPU (from the one used in the test for this document), you ***may*** hit some error similar to the below.
 The below error message was installed with command: `pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124`.
@@ -4006,6 +4067,80 @@ Another example:
 * The Compute Capability should be 7.5 (i.e. sm_75), and its Architecture Name is "Turing" (refer to both tables above as well as [CUDA GPU Compute Capability](https://developer.nvidia.com/cuda/gpus))
 * From [PyTorch CUDA Support Matrix](https://github.com/pytorch/pytorch/blob/main/RELEASE.md#pytorch-cuda-support-matrix) and the table above, we see that Architecture Name "Turing" is supported by CUDA version 12.6.3, 13.0.2 and 13.2.1 (i.e. **`cu126`** and **`cu130`** ; or even **`cu124`** and **`cu132`**)
 
+<br><br><br>
+
+***
+
+### Intel's Integrated GPU
+
+What about Intel's Integrated Graphics?
+Example CPU **Intel Core Ultra 9 185H**, it comes with integrated GPU called **Intel Arc Graphics**, and NPU called **Intel AI Boost**.
+You *can* use the integrated GPU for AI acceleration.
+Intel developed an open-source framework called **oneAPI** and a backend engine called **SYCL** to compete with NVIDIA's CUDA.
+
+PyTorch now officially supports Intel GPUs natively through the standard software stack.
+
+<br>
+
+How to install and configure PyTorch for the Intel machine?
+As of the time writing this document.
+
+- [ ] The Windows Host (The Driver Layer)
+  Intel CPU/GPU relies heavily on host-level driver mappings.
+  Make sure Windows 11 Intel Graphics Driver is completely up to date.
+  You want to be running the latest Intel Graphics Driver available via Windows Update or Intel's Driver & Support Assistant.
+
+- [ ] Inside Ubuntu 24.04 (The Compute Layer)
+  WSL2 maps the physical GPU into Linux as a "render node" (usually found at /dev/dri/renderD128).
+  To interact with it, your Ubuntu instance needs the underlying compute runtimes.
+
+  Open your WSL2 Ubuntu CLI terminal and perform the following configurations:
+
+  - [ ] Install the Intel Graphics Compute Runtimes
+    You need to add Intel’s official package repository to Ubuntu to fetch the hardware translation libraries (Level Zero and OpenCL).
+    Run these commands:
+
+    ```
+    # Add the Intel repository key
+    wget -qO - https://repositories.intel.com/gpu/intel-graphics.key | sudo gpg --yes --dearmor --output /usr/share/keyrings/intel-graphics.gpg
+
+    # Configure the APT repository
+    echo "deb [arch=amd64,i386 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://repositories.intel.com/gpu/ubuntu noble client" | sudo tee /etc/apt/sources.list.d/intel-gpu-noble.list
+
+    # Update package lists and install the runtimes
+    sudo apt update -y
+    sudo apt install -y intel-opencl-icd intel-level-zero-gpu level-zero
+    ```
+
+  - [ ] Adjust Permissions
+    By default, standard Linux users don't have direct access to hardware acceleration nodes.
+    You need to assign your Ubuntu user account to the video and render groups:
+
+    ```
+    sudo usermod -aG video $USER
+    sudo usermod -aG render $USER
+    ```
+
+    ***Important***: Close your WSL CLI terminal completely and reopen it for these group permission changes to apply!)
+
+Once you've ensure the two items above, pull the Software Wheel from the specific XPU-enabled wheel.
+
+```
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu
+```
+
+<br>
+
+Instead of targeting `cuda`, the code on the Intel machine must explicitly target Intel's compute device layer, known as **`xpu`**:
+
+```
+import torch
+print(f"PyTorch Version: {torch.__version__}")
+xpu_available = torch.xpu.is_available()
+print(f"Is XPU available? {xpu_available}")
+print(f"Using GPU device: {torch.xpu.get_device_name(0)}" if xpu_available else "No Intel XPU device detected.")
+exit()
+```
 
 
 
