@@ -1,11 +1,25 @@
+# CLI Dumps of WSL2, Ubuntu 24.04 and PyTorch on Intel GPU
 
+<br><br><br>
+```
+╔═╦═══════════════════════════════════════════════════════╦═╗
+╠═╬═══════════════════════════════════════════════════════╬═╣
+║ ║ Content of this Folder was Last Updated on 2026 07 22 ║ ║
+╠═╬═══════════════════════════════════════════════════════╬═╣
+╚═╩═══════════════════════════════════════════════════════╩═╝
+```
+<br><br><br>
 
+## Before WSL2 Virtualization Framework installed on Windows 11
 
-Windows PowerShell
-Copyright (C) Microsoft Corporation. All rights reserved.
+```
+PS C:\Users\Hendry Chandra> wsl --status
+The Windows Subsystem for Linux is not installed. You can install by running 'wsl.exe --install'.
+For more information please visit https://aka.ms/wslinstall
+PS C:\Users\Hendry Chandra>
+```
 
-Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
-
+```
 PS C:\Users\Hendry Chandra> wsl --help
 
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -28,28 +42,61 @@ Arguments:
 
     --help
         Display usage information.
-PS C:\Users\Hendry Chandra> wsl --status
-The Windows Subsystem for Linux is not installed. You can install by running 'wsl.exe --install'.
-For more information please visit https://aka.ms/wslinstall
 PS C:\Users\Hendry Chandra>
+```
 
+![File Explorer - Navigation Pane](08FileExplorerNavigationPane.png)
 
+<br><br><br>
 
-wsl --install
+***
 
+## Installing WSL Virtualization Framework
 
+Open: **PowerShell** in ***administrator mode***.
 
+Command: **`wsl --install`**.
 
+![Windows PowerShell - Install WSL2](04WindowsPowerShellInstallWSL2.png)
 
+After successful installation, ***restart your machine***.
 
+<br><br><br>
 
+***
 
+## After WSL2 Virtualization Framework installed, Windows 11 ReStarted
 
-Windows PowerShell
-Copyright (C) Microsoft Corporation. All rights reserved.
+```
+PS C:\Users\Hendry Chandra> wsl --status
+Default Version: 2
+WSL1 is not supported with your current machine configuration.
+Please enable the "Windows Subsystem for Linux" optional component to use WSL1.
+PS C:\Users\Hendry Chandra>
+```
 
-Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+```
+PS C:\Users\Hendry Chandra> wsl --version
+WSL version: 2.7.10.0
+Kernel version: 6.18.33.2-2
+WSLg version: 1.0.73.2
+MSRDC version: 1.2.6676
+Direct3D version: 1.611.1-81528511
+DXCore version: 10.0.26100.1-240331-1435.ge-release
+Windows version: 10.0.26200.8655
+PS C:\Users\Hendry Chandra> wsl --list --verbose
+Windows Subsystem for Linux has no installed distributions.
+You can resolve this by installing a distribution with the instructions below:
 
+Use 'wsl.exe --list --online' to list available distributions
+and 'wsl.exe --install <Distro>' to install.
+PS C:\Users\Hendry Chandra>
+```
+
+<details>
+<summary><b><code>wsl --help</code></b></summary>
+
+```
 PS C:\Users\Hendry Chandra> wsl --help
 Copyright (c) Microsoft Corporation. All rights reserved.
 For privacy information about this product please visit https://aka.ms/privacy.
@@ -260,32 +307,12 @@ Arguments for managing distributions in Windows Subsystem for Linux:
 
     --unregister <Distro>
         Unregisters the distribution and deletes the root filesystem.
-PS C:\Users\Hendry Chandra> wsl --status
-Default Version: 2
-WSL1 is not supported with your current machine configuration.
-Please enable the "Windows Subsystem for Linux" optional component to use WSL1.
 PS C:\Users\Hendry Chandra>
+```
 
+</details>
 
-
-PS C:\Users\Hendry Chandra> wsl --version
-WSL version: 2.7.10.0
-Kernel version: 6.18.33.2-2
-WSLg version: 1.0.73.2
-MSRDC version: 1.2.6676
-Direct3D version: 1.611.1-81528511
-DXCore version: 10.0.26100.1-240331-1435.ge-release
-Windows version: 10.0.26200.8655
-PS C:\Users\Hendry Chandra> wsl --list --verbose
-Windows Subsystem for Linux has no installed distributions.
-You can resolve this by installing a distribution with the instructions below:
-
-Use 'wsl.exe --list --online' to list available distributions
-and 'wsl.exe --install <Distro>' to install.
-PS C:\Users\Hendry Chandra>
-
-
-
+```
 PS C:\Users\Hendry Chandra> wsl --list --online
 The following is a list of valid distributions that can be installed.
 Install using 'wsl.exe --install <Distro>'.
@@ -314,24 +341,30 @@ OracleLinux_8_10                Oracle Linux 8.10
 OracleLinux_9_5                 Oracle Linux 9.5
 SUSE-Linux-Enterprise-15-SP6    SUSE Linux Enterprise 15 SP6
 PS C:\Users\Hendry Chandra>
+```
 
+<br><br><br>
 
+***
 
+## Install Ubuntu-24.04
+
+```
 PS C:\Users\Hendry Chandra> wsl --install --distribution Ubuntu-24.04 --name Ubuntu-24.04-HC --no-launch
 Downloading: Ubuntu 24.04 LTS
 Installing: Ubuntu 24.04 LTS
 Distribution successfully installed. It can be launched via 'wsl.exe -d Ubuntu-24.04-HC'
 PS C:\Users\Hendry Chandra>
+```
 
-
-
+```
 PS C:\Users\Hendry Chandra> wsl --list --verbose
   NAME               STATE           VERSION
 * Ubuntu-24.04-HC    Stopped         2
 PS C:\Users\Hendry Chandra>
+```
 
-
-
+```
 PS C:\Users\Hendry Chandra> wsl --distribution Ubuntu-24.04-HC
 Provisioning the new WSL instance Ubuntu-24.04-HC
 This might take a while...
@@ -341,28 +374,8 @@ Retype new password:
 passwd: password updated successfully
 To run a command as administrator (user "root"), use "sudo <command>".
 See "man sudo_root" for details.
-
 ubuntu@Hen-Chan-X-Man:/mnt/c/Users/Hendry Chandra$
-
-
-
-ubuntu@Hen-Chan-X-Man:/mnt/c/Users/Hendry Chandra$ nvidia-smi
-Command 'nvidia-smi' not found, but can be installed with:
-sudo apt install nvidia-utils-470         # version 470.256.02-0ubuntu0.24.04.1, or
-sudo apt install nvidia-utils-470-server  # version 470.256.02-0ubuntu0.24.04.1
-sudo apt install nvidia-utils-535         # version 535.288.01-0ubuntu0.24.04.1
-sudo apt install nvidia-utils-535-server  # version 535.288.01-0ubuntu0.24.04.2
-sudo apt install nvidia-utils-565-server  # version 565.57.01-0ubuntu0.24.04.3
-sudo apt install nvidia-utils-570         # version 570.211.01-0ubuntu0.24.04.1
-sudo apt install nvidia-utils-570-server  # version 570.211.01-0ubuntu0.24.04.1
-sudo apt install nvidia-utils-580         # version 580.126.09-0ubuntu0.24.04.1
-sudo apt install nvidia-utils-580-server  # version 580.126.09-0ubuntu0.24.04.1
-sudo apt install nvidia-utils-590         # version 590.48.01-0ubuntu0.24.04.1
-sudo apt install nvidia-utils-590-server  # version 590.48.01-0ubuntu0.24.04.1
-sudo apt install nvidia-utils-525         # version 525.147.05-0ubuntu1
-sudo apt install nvidia-utils-525-server  # version 525.147.05-0ubuntu1
-ubuntu@Hen-Chan-X-Man:/mnt/c/Users/Hendry Chandra$
-
+```
 
 
 ubuntu@Hen-Chan-X-Man:/mnt/c/Users/Hendry Chandra$ echo -e "\n\n\nroot     ALL=(ALL:ALL) NOPASSWD:ALL\nubuntu   ALL=(ALL:ALL) NOPASSWD:ALL\n\n\n" | sudo tee -a /etc/sudoers
@@ -1780,8 +1793,57 @@ ubuntu@Hen-Chan-X-Man:/mnt/c/Users/Hendry Chandra$
 
 
 
+
+Note: ***NO*** **`nvidia-smi`**
+
+ubuntu@Hen-Chan-X-Man:/mnt/c/Users/Hendry Chandra$ nvidia-smi
+Command 'nvidia-smi' not found, but can be installed with:
+sudo apt install nvidia-utils-470         # version 470.256.02-0ubuntu0.24.04.1, or
+sudo apt install nvidia-utils-470-server  # version 470.256.02-0ubuntu0.24.04.1
+sudo apt install nvidia-utils-535         # version 535.288.01-0ubuntu0.24.04.1
+sudo apt install nvidia-utils-535-server  # version 535.288.01-0ubuntu0.24.04.2
+sudo apt install nvidia-utils-565-server  # version 565.57.01-0ubuntu0.24.04.3
+sudo apt install nvidia-utils-570         # version 570.211.01-0ubuntu0.24.04.1
+sudo apt install nvidia-utils-570-server  # version 570.211.01-0ubuntu0.24.04.1
+sudo apt install nvidia-utils-580         # version 580.126.09-0ubuntu0.24.04.1
+sudo apt install nvidia-utils-580-server  # version 580.126.09-0ubuntu0.24.04.1
+sudo apt install nvidia-utils-590         # version 590.48.01-0ubuntu0.24.04.1
+sudo apt install nvidia-utils-590-server  # version 590.48.01-0ubuntu0.24.04.1
+sudo apt install nvidia-utils-525         # version 525.147.05-0ubuntu1
+sudo apt install nvidia-utils-525-server  # version 525.147.05-0ubuntu1
+ubuntu@Hen-Chan-X-Man:/mnt/c/Users/Hendry Chandra$
+
+
+
+
 ubuntu@Hen-Chan-X-Man:/mnt/c/Users/Hendry Chandra$ cd $HOME
 ubuntu@Hen-Chan-X-Man:~$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
