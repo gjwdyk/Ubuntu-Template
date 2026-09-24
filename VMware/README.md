@@ -152,9 +152,9 @@ The **Hardware** dialog lists the devices of the VM (Memory, Processors, CD/DVD,
 Select a device in the list on the left to edit its settings on the right.
 In this guide the VM gets **four network adapters**, each one connected to its own virtual network (`VMnet8`, `VMnet9`, `VMnet7`, and `VMnet6`).
 
-Kindly refer to the [Virtual Networks](/VMnet) section for more details on each VMnet's configurations and the generic purposes.
+Kindly refer to the [Virtual Networks](VMnet) section for more details on each VMnet's configurations and the generic purposes.
 
-> **Note:** For this Ubuntu template, `VMnet9`, `VMnet8`, `VMnet7` and `VMnet6` must already exist and be configured in the host's **Virtual Network Editor** (Workstation: **Edit > Virtual Network Editor...**, which needs administrator rights via *Change Settings*). Again, kindly refer to [Virtual Networks](/VMnet) for details.
+> **Note:** For this Ubuntu template, `VMnet9`, `VMnet8`, `VMnet7` and `VMnet6` must already exist and be configured in the host's **Virtual Network Editor** (Workstation: **Edit > Virtual Network Editor...**, which needs administrator rights via *Change Settings*). Again, kindly refer to [Virtual Networks](VMnet) for details.
 
 #### Step 15 — Network Adapter (default: NAT)
 
