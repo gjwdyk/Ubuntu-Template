@@ -154,22 +154,20 @@ In this guide the VM gets **four network adapters**, each one connected to its o
 
 Kindly refer to the [Virtual Networks](VMnet) section for more details on each VMnet's configurations and the generic purposes.
 
-> **Note:** For this Ubuntu template, `VMnet9`, `VMnet8`, `VMnet7` and `VMnet6` must already exist and be configured in the host's **Virtual Network Editor** (Workstation: **Edit > Virtual Network Editor...**, which needs administrator rights via *Change Settings*). Again, kindly refer to [Virtual Networks](VMnet) for details.
-
-#### Step 15 — Network Adapter (default: NAT)
+> **Note:** For this Ubuntu template, `VMnet8`, `VMnet9`, `VMnet7` and `VMnet6` must already exist and be configured in the host's **Virtual Network Editor** (Workstation: **Edit > Virtual Network Editor...**, which needs administrator rights via *Change Settings*). Again, kindly refer to [Virtual Networks](VMnet) for details.
 
 This is what the first *Network Adapter* looks like by default: **Connect at power on** is checked and the connection type is **NAT** (share the host's IP address).
 The available connection types are Bridged, NAT, Host-only, **Custom: Specific virtual network**, and LAN segment.
 
 ![VMware New VM Wizard Hardware Network Adapter NAT](20260412154939VMwareNewVMWizardHardwareNetworkAdapterNAT.png)
 
-#### Step 16 — Network Adapter 1: VMnet8
+#### Step 15 — Network Adapter 1: VMnet8
 
 Keep **Connect at power on** checked, change the connection type to **Custom: Specific virtual network**, and select **VMnet8** from the drop-down list.
 
 ![VMware New VM Wizard Hardware Network Adapter VMnet8](20260424173147VMwareNewVMWizardHardwareNetworkAdapterVMnet8.png)
 
-#### Step 17 — Add more network adapters
+#### Step 16 — Add more network adapters
 
 To add another adapter, click **Add...** at the bottom of the device list, select **Network Adapter** in the *Add Hardware Wizard*, and click **Finish**.
 Repeat this for each additional adapter (three more in this guide).
@@ -177,13 +175,13 @@ A newly added adapter defaults to NAT, so each one needs to be set to its own vi
 
 ![VMware New VM Wizard Hardware Add Network Adapter](20260412155223VMwareNewVMWizardHardwareAddNetworkAdapter.png)
 
-#### Step 18 — Network Adapter 2: VMnet9
+#### Step 17 — Network Adapter 2: VMnet9
 
 Select **Network Adapter 2**, choose **Custom: Specific virtual network**, and select **VMnet9**.
 
 ![VMware New VM Wizard Hardware Network Adapter2 VMnet9](20260424173254VMwareNewVMWizardHardwareNetworkAdapter2VMnet9.png)
 
-#### Step 19 — Network Adapters 3 and 4: VMnet7 and VMnet6
+#### Step 18 — Network Adapters 3 and 4: VMnet7 and VMnet6
 
 Do the same for the remaining adapters:
 - **Network Adapter 3** → **Custom: VMnet7**
@@ -193,13 +191,13 @@ Do the same for the remaining adapters:
 
 ![VMware New VM Wizard Hardware Network Adapter4 VMnet6](20260412155534VMwareNewVMWizardHardwareNetworkAdapter4VMnet6.png)
 
-#### Step 20 — USB Controller
+#### Step 19 — USB Controller
 
 Select **USB Controller**. Here the **USB compatibility** is set to **USB 3.2**, and **Show all USB input devices** is left unchecked.
 
 ![VMware New VM Wizard Hardware USB Controller](20260412155608VMwareNewVMWizardHardwareUSBController.png)
 
-#### Step 21 — Display
+#### Step 20 — Display
 
 Select **Display**.
 Since this is a server VM without a graphical desktop, **Accelerate 3D graphics** is left unchecked and the monitors use the **host setting**.
@@ -213,14 +211,14 @@ Click **Close** to leave the *Hardware* dialog.
 
 ### Create the VM and adjust the final VM settings
 
-#### Step 22 — Review the final configuration and click *Finish*
+#### Step 21 — Review the final configuration and click *Finish*
 
 Back in the wizard, the summary now lists the customized **Network Adapter** entries (Custom: VMnet7, VMnet9, VMnet6, and so on; the list is cut off in the capture).
 Leave **Power on this virtual machine after creation** unchecked (there is one more setting to check before the first boot), and click **Finish**.
 
 ![VMware New VM Wizard Hardware Result](20260424173658VMwareNewVMWizardHardwareResult.png)
 
-#### Step 23 — The new VM in Workstation
+#### Step 22 — The new VM in Workstation
 
 The VM now appears in Workstation with its state **Powered off**.
 The *Devices* list confirms the configuration: 4 GB memory, 2 processors, a 1 TB SCSI hard disk, the CD/DVD (SATA) attached to the `.iso` file, and the four network adapters (Network Adapter → VMnet8, Network Adapter 2 → VMnet9, Network Adapter 3 → VMnet7, Network Adapter 4 → VMnet6).
@@ -232,7 +230,7 @@ To open the remaining settings, click **Edit virtual machine settings**.
 
 ![VMware Ubuntu Server 26.04](20260424173901VMwareUbuntuServer26.04.png)
 
-#### Step 24 — Options > Advanced
+#### Step 23 — Options > Advanced
 
 In the *Virtual Machine Settings* dialog, open the **Options** tab and select **Advanced**.
 
@@ -251,7 +249,7 @@ Click **OK** to save the settings.
 
 | Item | Value |
 |---|---|
-| Name / location | `Ubuntu Server 26.04` / `C:\HC\VM\OS\Ubuntu Server 26.04` |
+| Name | `Ubuntu Server 26.04` |
 | Hardware compatibility | Workstation 15.x |
 | Guest OS type | Ubuntu 64-bit |
 | Processors | 2 (2 processors × 1 core) |
