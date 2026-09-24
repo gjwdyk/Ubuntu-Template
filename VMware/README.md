@@ -32,8 +32,6 @@ There are multiple versions of Ubuntu (example: Desktop, Server, WSL, etc.), for
 This part creates the (still empty) virtual machine in VMware Workstation Pro 25H2 and tunes its virtual hardware, so that it is ready to boot from the Ubuntu Server `.iso` file downloaded above.
 The values shown in the screen captures are the values used in this guide; adjust them to your own needs (CPU, memory, disk size, network layout).
 
-> **Note:** The captures use `ubuntu-26.04-live-server-amd64.iso`. If you downloaded a different Ubuntu Server release, the file name and the "detected" message in Step 4 will differ accordingly.
-
 <br>
 
 #### Step 1 — Start the New Virtual Machine wizard
@@ -60,8 +58,11 @@ Click **Next >**.
 
 #### Step 4 — Point the wizard to the installer `.iso`
 
-Select **Installer disc image file (iso)**, then use **Browse...** to pick the Ubuntu Server `.iso` file you downloaded (here: `D:\HC\DL\ubuntu-26.04-live-server-amd64.iso`).
+Select **Installer disc image file (iso)**, then use **Browse...** to pick the Ubuntu Server `.iso` file you downloaded.
+
 Workstation reads the image and reports **Ubuntu 64-bit Server 26.04 detected**.
+
+> **Note:** The example in this section use `ubuntu-26.04-live-server-amd64.iso`. If you downloaded a different Ubuntu Server release, the file name and the "detected" message in this Step 4 will differ accordingly.
 
 The wizard also mentions *Easy Install* (it asks to insert the first disc of the set).
 This guide does not use Easy Install; the Ubuntu installer will be run manually the first time the VM is booted.
