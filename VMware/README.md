@@ -94,7 +94,7 @@ The *Guest OS recommended minimum* is 2 GB, and the *Maximum recommended memory*
 #### Step 8 — Network type
 
 Select **Use network address translation (NAT)** for now.
-This is only a placeholder: the network adapters are reconfigured in detail later, in *Customize Hardware* (Steps 15 to 19).
+This is only a placeholder: the network adapters are reconfigured in detail later, in *Customize Hardware* (Steps 15 to 18).
 
 ![VMware New VM Wizard Network](20260412154104VMwareNewVMWizardNetwork.png)
 
@@ -263,6 +263,66 @@ Click **OK** to save the settings.
 | Side channel mitigations (Hyper-V hosts) | Off |
 
 The virtual machine is now ready to be powered on and to boot from the `.iso`, which continues with the Ubuntu installation wizard (covered in the next part of this guide).
+
+<br><br><br>
+
+***
+
+### Install Ubuntu VM Guest OS from the `.iso` file
+
+
+
+![Ubuntu Try Or Install](20260427221148UbuntuTryOrInstall.png)
+![Ubuntu Select Language](20260427221244UbuntuSelectLanguage.png)
+![Ubuntu Keyboard Layout](20260427221335UbuntuKeyboardLayout.png)
+![Ubuntu Type Of Install](20260427221457UbuntuTypeOfInstall.png)
+![Ubuntu Network Configuration](20260427221544UbuntuNetworkConfiguration.png)
+![VMware Hardware Network Adapter VMnet8](20260427221709VMwareHardwareNetworkAdapterVMnet8.png)
+![VMware Hardware Network Adapter VMnet8 Advanced Settings](20260427221729VMwareHardwareNetworkAdapterVMnet8AdvancedSettings.png)
+![Ubuntu Network Configuration ENS33](20260427221935UbuntuNetworkConfigurationENS33.png)
+![Ubuntu Network Configuration ENS33 IPv4 Manual](20260427222050UbuntuNetworkConfigurationENS33IPv4Manual.png)
+![Ubuntu Network Configuration ENS33 IPv4 Configuration](20260427222216UbuntuNetworkConfigurationENS33IPv4Configuration.png)
+![VMware Hardware Network Adapter VMnet9](20260427225740VMwareHardwareNetworkAdapterVMnet9.png)
+![VMware Hardware Network Adapter VMnet9 Advanced Settings](20260427225751VMwareHardwareNetworkAdapterVMnet9AdvancedSettings.png)
+![Ubuntu Network Configuration ENS34](20260427222241UbuntuNetworkConfigurationENS34.png)
+![Ubuntu Network Configuration ENS34 IPv4 Manual](20260427222259UbuntuNetworkConfigurationENS34IPv4Manual.png)
+![Ubuntu Network Configuration ENS34 IPv4 Configuration](20260427222413UbuntuNetworkConfigurationENS34IPv4Configuration.png)
+![VMware Hardware Network Adapter VMnet7](20260427225809VMwareHardwareNetworkAdapterVMnet7.png)
+![VMware Hardware Network Adapter VMnet7 Advanced Settings](20260427225829VMwareHardwareNetworkAdapterVMnet7AdvancedSettings.png)
+![Ubuntu Network Configuration ENS35](20260427222556UbuntuNetworkConfigurationENS35.png)
+![Ubuntu Network Configuration ENS35 IPv4 Manual](20260427222613UbuntuNetworkConfigurationENS35IPv4Manual.png)
+![Ubuntu Network Configuration ENS35 IPv4 Configuration](20260427222646UbuntuNetworkConfigurationENS35IPv4Configuration.png)
+![VMware Hardware Network Adapter VMnet6](20260427225847VMwareHardwareNetworkAdapterVMnet6.png)
+![VMware Hardware Network Adapter VMnet6 Advanced Settings](20260427225859VMwareHardwareNetworkAdapterVMnet6AdvancedSettings.png)
+![Ubuntu Network Configuration ENS36](20260427222706UbuntuNetworkConfigurationENS36.png)
+![Ubuntu Network Configuration ENS36 IPv4 Manual](20260427222721UbuntuNetworkConfigurationENS36IPv4Manual.png)
+![Ubuntu Network Configuration ENS36 IPv4 Configuration](20260427222752UbuntuNetworkConfigurationENS36IPv4Configuration.png)
+![Ubuntu Network Configuration Completed](20260427222844UbuntuNetworkConfigurationCompleted.png)
+![Ubuntu Proxy Configuration](20260427222903UbuntuProxyConfiguration.png)
+![Ubuntu Archive Mirror Configuration](20260427222943UbuntuArchiveMirrorConfiguration.png)
+![Ubuntu Installer Update Available](20260427223026UbuntuInstallerUpdateAvailable.png)
+![Ubuntu Guided Storage Configuration](20260427223142UbuntuGuidedStorageConfiguration.png)
+![Ubuntu Storage Configuration](20260427223226UbuntuStorageConfiguration.png)
+![Ubuntu Storage Configuration Confirmation](20260427223309UbuntuStorageConfigurationConfirmation.png)
+![Ubuntu Profile Configuration](20260427223359UbuntuProfileConfiguration.png)
+![Ubuntu Upgrade To Pro](20260427223422UbuntuUpgradeToPro.png)
+![Ubuntu Upgrade To Pro About](20260427223510UbuntuUpgradeToProAbout.png)
+![Ubuntu Upgrade To Pro Skip 4 Now](20260427223613UbuntuUpgradeToProSkip4Now.png)
+![Ubuntu SSH Configuration](20260427223700UbuntuSSHConfiguration.png)
+![Ubuntu Featured Server Snaps](20260427223801UbuntuFeaturedServerSnaps.png)
+![Ubuntu Installation Complete](20260427224018UbuntuInstallationComplete.png)
+![Ubuntu Installation Complete Full Log](20260427224103UbuntuInstallationCompleteFullLog.png)
+![Ubuntu Installation Complete](20260427224141UbuntuInstallationComplete.png)
+![Ubuntu Installation Complete Reboot Now](20260427224206UbuntuInstallationCompleteRebootNow.png)
+![Ubuntu Remove Installation Medium](20260427224237UbuntuRemoveInstallationMedium.png)
+![VMware Hardware DVD](20260427225638VMwareHardwareDVD.png)
+![Ubuntu Remove Installation Medium](20260427224357UbuntuRemoveInstallationMedium.png)
+![Ubuntu Login](20260427224438UbuntuLogin.png)
+![PuTTY Session](20260427224523PuTTYSession.png)
+![PuTTY Security Alert](20260427224536PuTTYSecurityAlert.png)
+![PuTTY Ubuntu](20260427224604PuTTYUbuntu.png)
+
+
 
 <br><br><br>
 
