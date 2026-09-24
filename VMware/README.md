@@ -62,7 +62,7 @@ Select **Installer disc image file (iso)**, then use **Browse...** to pick the U
 
 Workstation reads the image and reports **Ubuntu 64-bit Server 26.04 detected**.
 
-> **Note:** The example in this section use `ubuntu-26.04-live-server-amd64.iso`. If you downloaded a different Ubuntu Server release, the file name and the "detected" message in this Step 4 will differ accordingly.
+> **Note:** The example in this section uses `ubuntu-26.04-live-server-amd64.iso`. If you downloaded a different Ubuntu Server release, the file name and the "detected" message in this Step 4 will differ accordingly.
 
 The wizard also mentions *Easy Install* (it asks to insert the first disc of the set).
 This guide does not use Easy Install; the Ubuntu installer will be run manually the first time the VM is booted.
