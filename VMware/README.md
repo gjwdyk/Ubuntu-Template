@@ -38,14 +38,14 @@ The values shown in the screen captures are the values used in this guide; adjus
 
 In VMware Workstation, open the **File** menu and choose **New Virtual Machine...** (shortcut: `Ctrl+N`).
 
-![20260412152806VMwareNewVM.png](20260412152806VMwareNewVM.png)
+![VMware New VM](20260412152806VMwareNewVM.png)
 
 #### Step 2 — Choose the *Custom (advanced)* configuration
 
 Select **Custom (advanced)** and click **Next >**.
 *Typical* would create the VM in fewer steps, but *Custom* lets us pick the SCSI controller type, the virtual disk type, and the hardware compatibility version ourselves.
 
-![20260412153044VMwareNewVMWizardCustom.png](20260412153044VMwareNewVMWizardCustom.png)
+![VMware New VM Wizard Custom](20260412153044VMwareNewVMWizardCustom.png)
 
 #### Step 3 — Choose the hardware compatibility
 
@@ -54,7 +54,7 @@ The trade-off is shown in the *Limitations* list on the right: up to 64 GB memor
 Those limits are more than enough for a server VM.
 Click **Next >**.
 
-![20260412153232VMwareNewVMWizardWorkStation15.x.png](20260412153232VMwareNewVMWizardWorkStation15.x.png)
+![VMware New VM Wizard WorkStation 15.x](20260412153232VMwareNewVMWizardWorkStation15.x.png)
 
 #### Step 4 — Point the wizard to the installer `.iso`
 
@@ -67,14 +67,13 @@ Workstation reads the image and reports **Ubuntu 64-bit Server 26.04 detected**.
 The wizard also mentions *Easy Install* (it asks to insert the first disc of the set).
 This guide does not use Easy Install; the Ubuntu installer will be run manually the first time the VM is booted.
 
-![20260424172219VMwareNewVMWizardDiscImage.png](20260424172219VMwareNewVMWizardDiscImage.png)
+![VMware New VM Wizard Disc Image](20260424172219VMwareNewVMWizardDiscImage.png)
 
 #### Step 5 — Name the virtual machine and choose where to store it
 
-Give the VM a descriptive **Virtual machine name** (here: `Ubuntu Server 26.04`) and choose the **Location** where its files will be stored (here: `C:\HC\VM\OS\Ubuntu Server 26.04`).
-The default location can be changed at **Edit > Preferences**.
+Give the VM a descriptive **Virtual machine name** (here: `Ubuntu Server 26.04`) and choose the **Location** where its files will be stored.
 
-![20260424172419VMwareNewVMWizardVMName.png](20260424172419VMwareNewVMWizardVMName.png)
+![VMware New VM Wizard VM Name](20260424172419VMwareNewVMWizardVMName.png)
 
 #### Step 6 — Processor configuration
 
@@ -82,7 +81,7 @@ Set the number of processors and the number of cores per processor.
 This guide uses **2 processors** with **1 core per processor**, for a total of 2 processor cores.
 The value can be changed later in the VM settings if the workload requires it.
 
-![20260412153929VMwareNewVMWizardProcessor.png](20260412153929VMwareNewVMWizardProcessor.png)
+![VMware New VM Wizard Processor](20260412153929VMwareNewVMWizardProcessor.png)
 
 #### Step 7 — Memory
 
@@ -90,34 +89,34 @@ Set the memory for the VM (it must be a multiple of 4 MB).
 This guide uses **4096 MB (4 GB)**, which matches the *Recommended memory* marker in the wizard.
 The *Guest OS recommended minimum* is 2 GB, and the *Maximum recommended memory* (55.5 GB in the capture) depends on the RAM installed in your host computer.
 
-![20260412154007VMwareNewVMWizardMemory.png](20260412154007VMwareNewVMWizardMemory.png)
+![VMware New VM Wizard Memory](20260412154007VMwareNewVMWizardMemory.png)
 
 #### Step 8 — Network type
 
 Select **Use network address translation (NAT)** for now.
 This is only a placeholder: the network adapters are reconfigured in detail later, in *Customize Hardware* (Steps 15 to 19).
 
-![20260412154104VMwareNewVMWizardNetwork.png](20260412154104VMwareNewVMWizardNetwork.png)
+![VMware New VM Wizard Network](20260412154104VMwareNewVMWizardNetwork.png)
 
 #### Step 9 — I/O controller type
 
 Keep **LSI Logic (Recommended)** as the SCSI controller.
 *BusLogic* is greyed out because it is not available for 64-bit guests; *LSI Logic SAS* and *Paravirtualized SCSI* are also offered but are not used here.
 
-![20260412154142VMwareNewVMWizardIOController.png](20260412154142VMwareNewVMWizardIOController.png)
+![VMware New VM Wizard IO Controller](20260412154142VMwareNewVMWizardIOController.png)
 
 #### Step 10 — Virtual disk type
 
 Keep **SCSI (Recommended)** as the virtual disk type (the other choices are IDE, SATA, and NVMe).
 
-![20260412154222VMwareNewVMWizardDiskType.png](20260412154222VMwareNewVMWizardDiskType.png)
+![VMware New VM Wizard Disk Type](20260412154222VMwareNewVMWizardDiskType.png)
 
 #### Step 11 — Select the disk
 
 Choose **Create a new virtual disk**.
 The other two choices reuse a previously configured virtual disk, or give the VM direct access to a physical disk (advanced, and requires administrator privileges).
 
-![20260412154300VMwareNewVMWizardSelectDisk.png](20260412154300VMwareNewVMWizardSelectDisk.png)
+![VMware New VM Wizard Select Disk](20260412154300VMwareNewVMWizardSelectDisk.png)
 
 #### Step 12 — Disk capacity
 
@@ -128,14 +127,14 @@ Splitting the disk into multiple files makes the VM easier to move to another co
 
 > **Note:** Because the disk is not pre-allocated, the maximum size is a ceiling, not an immediate cost. The host drive still needs enough free space for the disk file as it grows.
 
-![20260412154340VMwareNewVMWizardDiskCapacity.png](20260412154340VMwareNewVMWizardDiskCapacity.png)
+![VMware New VM Wizard Disk Capacity](20260412154340VMwareNewVMWizardDiskCapacity.png)
 
 #### Step 13 — Disk file name
 
 Accept the proposed name of the disk file (here: `Ubuntu Server 26.04.vmdk`).
 The wizard confirms that one 1024 GB disk file will be created with this name, in the VM folder chosen in Step 5.
 
-![20260424172842VMwareNewVMWizardDiskFile.png](20260424172842VMwareNewVMWizardDiskFile.png)
+![VMware New VM Wizard Disk File](20260424172842VMwareNewVMWizardDiskFile.png)
 
 #### Step 14 — Review, then click *Customize Hardware...*
 
@@ -143,7 +142,7 @@ The *Ready to Create Virtual Machine* page summarizes the settings chosen so far
 Note that the **Network Adapter** is still listed as **NAT** (from Step 8).
 Leave **Power on this virtual machine after creation** unchecked, and click **Customize Hardware...** to adjust the network adapters and a few other devices before the VM is created.
 
-![20260424173035VMwareNewVMWizardCustomizeHardware.png](20260424173035VMwareNewVMWizardCustomizeHardware.png)
+![VMware New VM Wizard Customize Hardware](20260424173035VMwareNewVMWizardCustomizeHardware.png)
 
 <br>
 
@@ -153,20 +152,22 @@ The **Hardware** dialog lists the devices of the VM (Memory, Processors, CD/DVD,
 Select a device in the list on the left to edit its settings on the right.
 In this guide the VM gets **four network adapters**, each one connected to its own virtual network (`VMnet8`, `VMnet9`, `VMnet7`, and `VMnet6`).
 
-> **Note:** `VMnet6` to `VMnet9` must already exist and be configured in the host's **Virtual Network Editor** (Workstation: **Edit > Virtual Network Editor...**, which needs administrator rights via *Change Settings*). In this setup `VMnet8` is shown as *Host-only* and `VMnet9` as *NAT*; these labels come from how the virtual networks were configured on this host, and may differ on yours.
+Kindly refer to the [Virtual Networks](/VMnet) section for more details on each VMnet's configurations and the generic purposes.
+
+> **Note:** For this Ubuntu template, `VMnet9`, `VMnet8`, `VMnet7` and `VMnet6` must already exist and be configured in the host's **Virtual Network Editor** (Workstation: **Edit > Virtual Network Editor...**, which needs administrator rights via *Change Settings*). Again, kindly refer to [Virtual Networks](/VMnet) for details.
 
 #### Step 15 — Network Adapter (default: NAT)
 
 This is what the first *Network Adapter* looks like by default: **Connect at power on** is checked and the connection type is **NAT** (share the host's IP address).
 The available connection types are Bridged, NAT, Host-only, **Custom: Specific virtual network**, and LAN segment.
 
-![20260412154939VMwareNewVMWizardHardwareNetworkAdapterNAT.png](20260412154939VMwareNewVMWizardHardwareNetworkAdapterNAT.png)
+![VMware New VM Wizard Hardware Network Adapter NAT](20260412154939VMwareNewVMWizardHardwareNetworkAdapterNAT.png)
 
 #### Step 16 — Network Adapter 1: VMnet8
 
 Keep **Connect at power on** checked, change the connection type to **Custom: Specific virtual network**, and select **VMnet8** from the drop-down list.
 
-![20260424173147VMwareNewVMWizardHardwareNetworkAdapterVMnet8.png](20260424173147VMwareNewVMWizardHardwareNetworkAdapterVMnet8.png)
+![VMware New VM Wizard Hardware Network Adapter VMnet8](20260424173147VMwareNewVMWizardHardwareNetworkAdapterVMnet8.png)
 
 #### Step 17 — Add more network adapters
 
@@ -174,13 +175,13 @@ To add another adapter, click **Add...** at the bottom of the device list, selec
 Repeat this for each additional adapter (three more in this guide).
 A newly added adapter defaults to NAT, so each one needs to be set to its own virtual network, as in the next steps.
 
-![20260412155223VMwareNewVMWizardHardwareAddNetworkAdapter.png](20260412155223VMwareNewVMWizardHardwareAddNetworkAdapter.png)
+![VMware New VM Wizard Hardware Add Network Adapter](20260412155223VMwareNewVMWizardHardwareAddNetworkAdapter.png)
 
 #### Step 18 — Network Adapter 2: VMnet9
 
 Select **Network Adapter 2**, choose **Custom: Specific virtual network**, and select **VMnet9**.
 
-![20260424173254VMwareNewVMWizardHardwareNetworkAdapter2VMnet9.png](20260424173254VMwareNewVMWizardHardwareNetworkAdapter2VMnet9.png)
+![VMware New VM Wizard Hardware Network Adapter2 VMnet9](20260424173254VMwareNewVMWizardHardwareNetworkAdapter2VMnet9.png)
 
 #### Step 19 — Network Adapters 3 and 4: VMnet7 and VMnet6
 
@@ -188,15 +189,15 @@ Do the same for the remaining adapters:
 - **Network Adapter 3** → **Custom: VMnet7**
 - **Network Adapter 4** → **Custom: VMnet6**
 
-![20260424173335VMwareNewVMWizardHardwareNetworkAdapter3VMnet7.png](20260424173335VMwareNewVMWizardHardwareNetworkAdapter3VMnet7.png)
+![VMware New VM Wizard Hardware Network Adapter3 VMnet7](20260424173335VMwareNewVMWizardHardwareNetworkAdapter3VMnet7.png)
 
-![20260412155534VMwareNewVMWizardHardwareNetworkAdapter4VMnet6.png](20260412155534VMwareNewVMWizardHardwareNetworkAdapter4VMnet6.png)
+![VMware New VM Wizard Hardware Network Adapter4 VMnet6](20260412155534VMwareNewVMWizardHardwareNetworkAdapter4VMnet6.png)
 
 #### Step 20 — USB Controller
 
 Select **USB Controller**. Here the **USB compatibility** is set to **USB 3.2**, and **Show all USB input devices** is left unchecked.
 
-![20260412155608VMwareNewVMWizardHardwareUSBController.png](20260412155608VMwareNewVMWizardHardwareUSBController.png)
+![VMware New VM Wizard Hardware USB Controller](20260412155608VMwareNewVMWizardHardwareUSBController.png)
 
 #### Step 21 — Display
 
@@ -206,7 +207,7 @@ Under *Display scaling*, **Stretch mode** is enabled with **Keep aspect ratio st
 
 Click **Close** to leave the *Hardware* dialog.
 
-![20260412155654VMwareNewVMWizardHardwareDisplay.png](20260412155654VMwareNewVMWizardHardwareDisplay.png)
+![VMware New VM Wizard Hardware Display](20260412155654VMwareNewVMWizardHardwareDisplay.png)
 
 <br>
 
@@ -217,7 +218,7 @@ Click **Close** to leave the *Hardware* dialog.
 Back in the wizard, the summary now lists the customized **Network Adapter** entries (Custom: VMnet7, VMnet9, VMnet6, and so on; the list is cut off in the capture).
 Leave **Power on this virtual machine after creation** unchecked (there is one more setting to check before the first boot), and click **Finish**.
 
-![20260424173658VMwareNewVMWizardHardwareResult.png](20260424173658VMwareNewVMWizardHardwareResult.png)
+![VMware New VM Wizard Hardware Result](20260424173658VMwareNewVMWizardHardwareResult.png)
 
 #### Step 23 — The new VM in Workstation
 
@@ -229,7 +230,7 @@ The *Virtual Machine Details* also show the location of the configuration file (
 
 To open the remaining settings, click **Edit virtual machine settings**.
 
-![20260424173901VMwareUbuntuServer26.04.png](20260424173901VMwareUbuntuServer26.04.png)
+![VMware Ubuntu Server 26.04](20260424173901VMwareUbuntuServer26.04.png)
 
 #### Step 24 — Options > Advanced
 
@@ -242,7 +243,7 @@ In the *Virtual Machine Settings* dialog, open the **Options** tab and select **
 
 Click **OK** to save the settings.
 
-![20260424174010VMwareVMSettingsOptionsAdvancedDISABLESideChannelMitigations.png](20260424174010VMwareVMSettingsOptionsAdvancedDISABLESideChannelMitigations.png)
+![VMware VM Settings Options Advanced DISABLE Side Channel Mitigations](20260424174010VMwareVMSettingsOptionsAdvancedDISABLESideChannelMitigations.png)
 
 <br>
 
