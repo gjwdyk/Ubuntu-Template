@@ -308,6 +308,9 @@ Leave **Search for third-party drivers** unchecked, then select **Done**.
 
 The installer lists one entry per network adapter attached to the VM: `ens33`, `ens34`, `ens35`, `ens36` in this guide, corresponding respectively to **Network Adapter** (VMnet8), **Network Adapter 2** (VMnet9), **Network Adapter 3** (VMnet7), and **Network Adapter 4** (VMnet6) from the *Customize the virtual hardware* section.
 
+Finding the association between Ubuntu's Network Adapter (e.g. `ens33`) with the VMware's Network Adapter (e.g. VMnet8) is useful
+for you to get knowledge which subnet to be configured for each Ubuntu's Network Adapter (e.g. `ens33`). Referring to [Virtual Networks](VMnet) section, for example, we gain the knowledge that VMnet8's subnet was defined as `192.168.123.0/24`. And therefore `ens33` needs to be configured around the same subnet `192.168.123.0/24`, in order for the network adapter to work properly.
+
 > **Tip:** To confirm which `ensXX` name belongs to which VMnet, match the MAC address shown next to each interface in the installer (for example `00:0c:29:de:23:30`) against the **MAC Address** field in that adapter's **Advanced Settings** in VMware (**Edit virtual machine settings > Hardware**, select the adapter, click **Advanced...**). This is why the captures below alternate between the VMware hardware dialog and the Ubuntu installer.
 
 All four interfaces start out **disabled**, with **autoconfiguration failed** (there is no DHCP server to answer them yet), so each one is set to a static address in turn.
@@ -335,6 +338,8 @@ Change the **IPv4 Method** from *Automatic (DHCP)* to **Manual**.
 
 ![Ubuntu Network Configuration ENS33 IPv4 Manual](20260427222050UbuntuNetworkConfigurationENS33IPv4Manual.png)
 
+Referring to [Virtual Networks](VMnet) section, we gain the knowledge that VMnet8's subnet was defined as `192.168.123.0/24`. And therefore `ens33` needs to be configured around the same subnet `192.168.123.0/24`, in order for the network adapter to work properly.
+
 Fill in the **Subnet** and **Address** (here: `192.168.123.0/24` and `192.168.123.38`).
 **Gateway** and **Name servers** are left blank on this interface, since it is a host-only network with no route to the internet.
 Select **Save**.
@@ -355,6 +360,8 @@ The matching MAC identifies `ens34`. Select `ens34 > Edit IPv4`.
 Change the **IPv4 Method** to **Manual**.
 
 ![Ubuntu Network Configuration ENS34 IPv4 Manual](20260427222259UbuntuNetworkConfigurationENS34IPv4Manual.png)
+
+Referring to [Virtual Networks](VMnet) section, we gain the knowledge that VMnet9's subnet was defined as `192.168.101.0/24`. And therefore `ens34` needs to be configured around the same subnet `192.168.101.0/24`. More over from [Virtual Networks](VMnet) section, we learn that VMnet9 also have NAT Default Gateway which also serves as DNS.
 
 Fill in **Subnet** `192.168.101.0/24`, **Address** `192.168.101.38`, **Gateway** `192.168.101.8`, and **Name servers** `192.168.101.8`.
 Because this interface sits on the NAT network, it is the one used to reach the outside world (and to fetch package updates during the rest of the installation), which is why it is the only interface configured with a gateway and a name server here.
@@ -377,6 +384,8 @@ Change the **IPv4 Method** to **Manual**.
 
 ![Ubuntu Network Configuration ENS35 IPv4 Manual](20260427222613UbuntuNetworkConfigurationENS35IPv4Manual.png)
 
+Referring to [Virtual Networks](VMnet) section, we gain the knowledge that VMnet7's subnet was defined as `192.168.111.0/24`. And therefore `ens35` needs to be configured around the same subnet `192.168.111.0/24`, in order for the network adapter to work properly.
+
 Fill in **Subnet** `192.168.111.0/24` and **Address** `192.168.111.38`, again leaving **Gateway** and **Name servers** blank.
 Select **Save**.
 
@@ -397,7 +406,7 @@ Change the **IPv4 Method** to **Manual**.
 
 ![Ubuntu Network Configuration ENS36 IPv4 Manual](20260427222721UbuntuNetworkConfigurationENS36IPv4Manual.png)
 
-Fill in **Subnet** `192.168.222.0/24` and **Address** `192.168.222.38`, leaving **Gateway** and **Name servers** blank.
+Again, with reference to [Virtual Networks](VMnet) section, fill in **Subnet** `192.168.222.0/24` and **Address** `192.168.222.38`, leaving **Gateway** and **Name servers** blank.
 Select **Save**.
 
 ![Ubuntu Network Configuration ENS36 IPv4 Configuration](20260427222752UbuntuNetworkConfigurationENS36IPv4Configuration.png)
