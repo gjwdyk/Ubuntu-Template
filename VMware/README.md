@@ -469,7 +469,7 @@ Select **Continue**.
 #### Step 40 — Profile configuration
 
 Enter **Your name**, **Your servers name** (the hostname), **Pick a username**, and a password (entered twice).
-This guide uses `ubuntu` for the name, server name, and username; use your own values for anything other than a disposable lab VM.
+This guide uses `ubuntu` for the name, server name, and username; use your own values for anything other than a disposable lab/demo VM.
 Select **Done**.
 
 ![Ubuntu Profile Configuration](20260427223359UbuntuProfileConfiguration.png)
@@ -490,7 +490,7 @@ Check **Install OpenSSH server** so the VM can be reached remotely once it reboo
 **Allow password authentication over SSH** is left checked, and no key is imported under **Import SSH key**.
 Select **Done**.
 
-> **Note:** Allowing password authentication is convenient for a lab VM but is not a hardened setting. For anything beyond local testing, consider importing a public key here instead and disabling password authentication afterwards.
+> **Note:** Allowing password authentication is convenient for a lab/demo VM but is not a hardened setting. For anything beyond local testing, consider importing a public key here instead and disabling password authentication afterwards.
 
 ![Ubuntu SSH Configuration](20260427223700UbuntuSSHConfiguration.png)
 
@@ -510,9 +510,9 @@ Select **Done** to skip them; they can be installed later with `snap install`.
 The installer partitions and formats the disk, extracts the system, installs the kernel and OpenSSH server, configures cloud-init, and applies security updates.
 **View full log** shows the complete output if you want to check the details of any step.
 
-![Ubuntu Installation Complete](20260427224018UbuntuInstallationComplete.png)
-![Ubuntu Installation Complete Full Log](20260427224103UbuntuInstallationCompleteFullLog.png)
 ![Ubuntu Installation Complete](20260427224141UbuntuInstallationComplete.png)
+![Ubuntu Installation Complete Full Log](20260427224103UbuntuInstallationCompleteFullLog.png)
+![Ubuntu Installation Complete](20260427224018UbuntuInstallationComplete.png)
 
 #### Step 45 — Reboot
 
@@ -570,15 +570,15 @@ After entering the username and password, the VM's message of the day confirms t
 
 <br>
 
-#### Summary of the installed guest OS
+#### Summary of the installed Ubuntu Guest OS
 
 | Item | Value |
 |---|---|
 | Hostname / username | `ubuntu` / `ubuntu` |
-| Network (`ens33`) | `192.168.123.38/24` on VMnet8, no gateway |
-| Network (`ens34`) | `192.168.101.38/24` on VMnet9, gateway/DNS `192.168.101.8` |
-| Network (`ens35`) | `192.168.111.38/24` on VMnet7, no gateway |
-| Network (`ens36`) | `192.168.222.38/24` on VMnet6, no gateway |
+| Network (`ens33`) | `192.168.123.38/24` on VMnet8, No Gateway |
+| Network (`ens34`) | `192.168.101.38/24` on VMnet9, NAT Default Gateway/DNS `192.168.101.8` |
+| Network (`ens35`) | `192.168.111.38/24` on VMnet7, No Gateway |
+| Network (`ens36`) | `192.168.222.38/24` on VMnet6, No Gateway |
 | Storage | LVM on `/dev/sda`: `/boot` 2 GB, `/` 100 GB (ext4), ~922 GB free in `ubuntu-vg` |
 | Encryption | None (LUKS not enabled) |
 | Ubuntu Pro | Not enabled |
