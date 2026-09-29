@@ -30,16 +30,9 @@ All of the VMnets shown here are configured in VMware Workstation's **Virtual Ne
 Four purposes sit behind this layout:
 
 - **VMnet8 — administrative access.** A host-only network with the host's virtual adapter connected, used by the administrator (or by the host in general) to reach the Guest OS directly.
-- **VMnet9 — outbound / internet access.** A NAT network, so Guest OS instances can reach external networks (typically the internet) through the host's connection. The host's virtual adapter is also connected here, which turns out to be useful for lab and demo troubleshooting: with the host on the same wire, packet captures with tools like tcpdump or Wireshark can be taken directly from the host side of the NAT network.
-- **VMnet1 to VMnet7 — inter-Guest OS communication.** Seven isolated networks (no host adapter, no external connection), left free to be assigned to whatever role a given lab or demo needs. For example, in a BIG-IP lab, VMnet7 could carry the control-plane traffic between BIG-IP nodes (such as failover heartbeat), VMnet6 could carry client-side data from a client Guest OS to the active BIG-IP, and VMnet5 could carry the corresponding server-side data from the active BIG-IP to the server Guest OS. Any of VMnet1 to VMnet7 can be repurposed this way; the assignment is a convention of each lab, not a fixed rule of the network itself.
-- **VMnet0 — bridged, last resort external access.** Added later, after corporate security policy began filtering both the types and destinations of traffic reachable from the host. That filtering is reasonable for protecting a corporate computer, but it gets in the way of lab and demo traffic. VMnet0 bridges a Guest OS as directly as possible to the physical network, minimizing the host's own involvement in handling that traffic. Because VMnet0 connects straight to an external network that is usually outside this guide's control, it is normally left to whatever DHCP server exists on that external network, rather than being fixed like VMnet1 to VMnet9.
-
-
-
-
-
-
-
+- **VMnet9 — outbound / internet access.** A NAT network, so Guest OS instances can reach external networks (typically the internet) through the host's connection. The host's virtual adapter is also connected here, which can be used for lab's showcase and demo troubleshooting: with the host on the same wire, packet captures with tools like tcpdump or Wireshark can be taken directly from the host side of the NAT network.
+- **VMnet1 to VMnet7 — inter-Guest OS communication.** Seven isolated networks (no host adapter, no external connection), left free to be assigned to whatever role a given lab or demo needs. For example, in a Big-IP lab, VMnet7 could carry the control-plane traffic between Big-IP nodes (such as failover heartbeat), VMnet6 could carry client-side data from a client Guest OS to the active Big-IP, and VMnet5 could carry the corresponding server-side data from the active Big-IP to the server Guest OS. Any of VMnet1 to VMnet7 can be repurposed this way; the assignment is a convention of each lab, not a fixed rule of the network itself.
+- **VMnet0 — bridged, last resort external access.** You can use this type of virtual network adapter in the case that the host system filters types of traffic and destinations. That filtering is reasonable for protecting the host system (example: on a corporate computer), but it gets in the way of lab and demo traffic. VMnet0 bridges a Guest OS as directly as possible to the physical network, minimizing the host's own involvement in handling that traffic. Because VMnet0 connects straight to an external network that is usually outside this guide's control, it is normally left to whatever DHCP server exists on that external network, rather than being fixed like VMnet1 to VMnet9.
 
 <br><br><br>
 
