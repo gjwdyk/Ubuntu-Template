@@ -70,23 +70,15 @@ Which of VMnet1 to VMnet7 is used for what is a convention of the lab or demo be
 
 ![Virtual Network Editor VMnet7](20260924083317VirtualNetworkEditorVMnet7.png)
 
-
 ![Virtual Network Editor VMnet6](20260924083327VirtualNetworkEditorVMnet6.png)
-
 
 ![Virtual Network Editor VMnet5](20260924083337VirtualNetworkEditorVMnet5.png)
 
-
 ![Virtual Network Editor VMnet4](20260924083402VirtualNetworkEditorVMnet4.png)
-
 
 ![Virtual Network Editor VMnet3](20260924083411VirtualNetworkEditorVMnet3.png)
 
-
 ![Virtual Network Editor VMnet2](20260924083420VirtualNetworkEditorVMnet2.png)
-
-
-
 
 ![Virtual Network Editor VMnet1](20260924083431VirtualNetworkEditorVMnet1.png)
 
@@ -98,9 +90,11 @@ VMnet0 is set to **Bridged**, connecting VMs directly to the external network ra
 
 The **Bridged to** drop-down lists the host's available physical and virtual adapters (here, two Wi-Fi adapter instances and a Bluetooth PAN, alongside **Automatic**). This guide bridges to a specific physical adapter (`Intel(R) Wi-Fi 7 BE201 320MHz`) rather than leaving it on **Automatic**, so the bridge always goes out through a known, chosen interface instead of whichever one VMware's automatic bridging picks — one more way of keeping the host's own handling of this traffic as thin as possible.
 
-Because VMnet0 is a direct bridge, any Guest OS on it is subject to whatever DHCP server (or lack of one) exists on that external network — this is the one VMnet in this guide where addressing is intentionally left outside local control.
+In the case that similar adapter's names appear multiple times (similar to the screen capture below), run `ipconfig /all` in a command prompt — only the live adapter will show a current IP configuration and default gateway, then pick whichever one of the three that checks out as live.
 
 ![Virtual Network Editor VMnet0 Bridge To Selection](20260924083503VirtualNetworkEditorVMnet0BridgeToSelection.png)
+
+Because VMnet0 is a direct bridge, any Guest OS on it is subject to whatever DHCP server (or lack of one) exists on that external network — this is the one VMnet in this guide where addressing is intentionally left outside local control.
 
 
 
